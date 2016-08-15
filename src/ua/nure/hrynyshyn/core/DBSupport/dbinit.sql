@@ -1,10 +1,22 @@
-create DATABASE IF NOT EXISTS RAILWAY;
+CREATE DATABASE IF NOT EXISTS RAILWAY;
 USE RAILWAY;
-CREATE TABLE STATIONS(
+CREATE TABLE STATIONS (
   station_ID INT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(50),
-  city VARCHAR(50),
-  state VARCHAR(50),
-  country VARCHAR(50),
+  name       VARCHAR(50),
+  city       VARCHAR(50),
+  state      VARCHAR(50),
+  country    VARCHAR(50),
   PRIMARY KEY (station_ID)
 );
+CREATE TABLE ROUTES (
+  route_ID         INT NOT NULL AUTO_INCREMENT,
+  departStation_ID INT NOT NULL,
+  departTime       DATETIME,
+  destStation_ID   INT NOT NULL,
+  destTime         DATETIME,
+  PRIMARY KEY (route_ID),
+  FOREIGN KEY (departStation_ID) REFERENCES STATIONS (station_ID),
+  FOREIGN KEY (destStation_ID) REFERENCES STATIONS (station_ID)
+);
+
+SELECT * FROM RAILWAY.ROUTES;

@@ -13,7 +13,7 @@ import java.util.List;
 public class RouteDAO extends AbstractDAO<Route> {
     @Override
     protected String getInsertQuery() {
-        return "INSERT INTO RAILWAY.ROUTES (departStation, departTime, destStation, destTime) VALUES(?,?,?,?)";
+        return "INSERT INTO RAILWAY.ROUTES (departStation_ID, departTime, destStation_ID, destTime) VALUES(?,?,?,?)";
     }
 
     @Override
@@ -23,7 +23,7 @@ public class RouteDAO extends AbstractDAO<Route> {
 
     @Override
     protected String getUpdateQuery() {
-        return "UPDATE RAILWAY.ROUTE SET departStation=?, departTime=?, destStation=?, destTime=? WHERE route_ID=?";
+        return "UPDATE RAILWAY.ROUTE SET departStation_ID=?, departTime=?, destStation_ID=?, destTime=? WHERE route_ID=?";
     }
 
     @Override

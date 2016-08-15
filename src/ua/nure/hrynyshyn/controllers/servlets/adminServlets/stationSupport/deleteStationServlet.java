@@ -1,7 +1,5 @@
-package ua.nure.hrynyshyn.controllers.adminControllers;
+package ua.nure.hrynyshyn.controllers.servlets.adminServlets.stationSupport;
 
-import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
-import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.StationDAO;
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
 import ua.nure.hrynyshyn.core.moderating.Administrator;
 
@@ -12,30 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 /**
- * Created by GrynyshynRoman on 09.08.2016.
+ * Created by GrynyshynRoman on 12.08.2016.
  */
-@WebServlet(name = "addStationServlet", urlPatterns = "/addStation")
-public class addStationServlet extends HttpServlet {
+@WebServlet(name = "deleteStationServlet", urlPatterns = "/deleteStation")
+public class deleteStationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        request.setCharacterEncoding("UTF-8");
         Station station=new Station();
-        station.setName(request.getParameter("name"));
-        station.setCity(request.getParameter("city"));
-        station.setState(request.getParameter("state"));
-        station.setCountry(request.getParameter("country"));
+        station.setStation_ID(Integer.parseInt(request.getParameter("id")));
         Administrator administrator=new Administrator();
-        administrator.addStation(station);
+        administrator.deleteStation(station);
         request.setAttribute("stations",administrator.getAllStations());
-       RequestDispatcher dispatcher=request.getRequestDispatcher("administrator.jsp");
+        RequestDispatcher dispatcher=request.getRequestDispatcher("administrator.jsp");
         dispatcher.forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+
     }
 }

@@ -13,24 +13,29 @@
 <body>
 <h1 align=center> RAILWAY </h1>
 <div align=center>
-    <jsp:include page="loginForm.html"/>
+    <table border="1">
+        <tr>
+            <td>
+                Search:
+                <form action="search" method="get">
+                    From: <input type="text" name="from">
+                    To: <input type="text" name="to"><br>
+                    Date: <input type="date" name="date">
+                    <input type="submit">
+                </form>
+            </td>
+            <td>
+                <jsp:include page="loginForm.html"/>
+            </td>
+        </tr>
+    </table>
+
 </div>
 <div align=center>
-    <form action="search" method="get">
-        From: <input type="text" name="from">
-        To: <input type="text" name="to"><br>
-        Date: <input type="date" name="date">
-        <input type="submit">
-    </form>
+
 </div>
 <div align=center>
-    <form action="addStation" method="post">
-        Name: <input type="text" name="name"><br>
-        City: <input type="text" name="city"><br>
-        State: <input type="text" name="state"><br>
-        Country:<input type="text" name="country"><br>
-        <input type="submit">
-    </form>
+
 </div>
 </body>
 </html>
