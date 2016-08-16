@@ -1,5 +1,6 @@
 package ua.nure.hrynyshyn.controllers.servlets.adminServlets.stationSupport;
 
+import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
 import ua.nure.hrynyshyn.core.moderating.Administrator;
 
@@ -19,9 +20,8 @@ public class deleteStationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Station station=new Station();
         station.setStation_ID(Integer.parseInt(request.getParameter("id")));
-        Administrator administrator=new Administrator();
-        administrator.deleteStation(station);
-        request.setAttribute("stations",administrator.getAllStations());
+        DAOFactory.getStationDAO().delete(station);
+        request.setAttribute("stations",DAOFactory.getStationDAO().getAll());
         RequestDispatcher dispatcher=request.getRequestDispatcher("administrator.jsp");
         dispatcher.forward(request,response);
     }

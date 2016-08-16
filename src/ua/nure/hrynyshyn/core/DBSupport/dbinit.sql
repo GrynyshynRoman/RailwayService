@@ -19,4 +19,18 @@ CREATE TABLE ROUTES (
   FOREIGN KEY (destStation_ID) REFERENCES STATIONS (station_ID)
 );
 
+CREATE TABLE WAY_STATIONS(
+  wayStation_ID int NOT NULL AUTO_INCREMENT,
+  route_ID INT NOT NULL ,
+  station_ID int NOT NULL ,
+  arrival_Time DATETIME,
+  depart_Time DATETIME,
+  waiting_Time TIME,
+  PRIMARY KEY (wayStation_ID),
+  FOREIGN KEY (route_ID) REFERENCES routes(route_ID),
+  FOREIGN KEY (station_ID) REFERENCES stations(station_ID)
+);
+
 SELECT * FROM RAILWAY.ROUTES;
+
+SELECT * FROM way_stations;

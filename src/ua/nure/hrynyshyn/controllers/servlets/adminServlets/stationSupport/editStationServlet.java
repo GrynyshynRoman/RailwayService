@@ -1,5 +1,6 @@
 package ua.nure.hrynyshyn.controllers.servlets.adminServlets.stationSupport;
 
+import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
 import ua.nure.hrynyshyn.core.moderating.Administrator;
 
@@ -23,9 +24,8 @@ public class editStationServlet extends HttpServlet {
         station.setCity(request.getParameter("city"));
         station.setState(request.getParameter("state"));
         station.setCountry(request.getParameter("country"));
-        Administrator administrator=new Administrator();
-        administrator.editStation(station);
-        request.setAttribute("stations",administrator.getAllStations());
+        DAOFactory.getStationDAO().update(station);
+        request.setAttribute("stations",DAOFactory.getStationDAO().getAll());
         RequestDispatcher dispatcher=request.getRequestDispatcher("administrator.jsp");
         dispatcher.forward(request,response);
     }

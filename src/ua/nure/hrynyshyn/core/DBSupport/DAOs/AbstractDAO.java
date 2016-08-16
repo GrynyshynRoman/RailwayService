@@ -46,6 +46,8 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
         } catch (SQLException e) {
             System.err.println(e);
             return false;
+        }finally {
+
         }
         return true;
     }

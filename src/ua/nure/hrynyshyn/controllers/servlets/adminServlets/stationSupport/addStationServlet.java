@@ -23,16 +23,15 @@ public class addStationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         request.setCharacterEncoding("UTF-8");
-        Station station=new Station();
+        Station station = new Station();
         station.setName(request.getParameter("name"));
         station.setCity(request.getParameter("city"));
         station.setState(request.getParameter("state"));
         station.setCountry(request.getParameter("country"));
-        Administrator administrator=new Administrator();
-        administrator.addStation(station);
-        request.setAttribute("stations",administrator.getAllStations());
-       RequestDispatcher dispatcher=request.getRequestDispatcher("administrator.jsp");
-        dispatcher.forward(request,response);
+        DAOFactory.getStationDAO().insert(station);
+        request.setAttribute("stations", DAOFactory.getStationDAO().getAll());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("administrator.jsp");
+        dispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

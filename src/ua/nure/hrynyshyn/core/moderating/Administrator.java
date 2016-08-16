@@ -5,6 +5,7 @@ import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.RouteDAO;
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.StationDAO;
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.Route;
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
+import ua.nure.hrynyshyn.core.entities.railway.realEstate.WayStation;
 
 import java.util.List;
 
@@ -12,23 +13,25 @@ import java.util.List;
  * Created by HrynyshynRoman on 04.08.2016.
  */
 public class Administrator {
-    private StationDAO stationDAO =DAOFactory.getStationDAO();
-    private RouteDAO routeDAO=DAOFactory.getRouteDAO();
-    public void addStation(Station station){
-        stationDAO.insert(station);
+
+    public static void addStation(Station station){
+        DAOFactory.getStationDAO().insert(station);
     }
-    public void deleteStation(Station station){
-        stationDAO.delete(station);
+    public static void deleteStation(Station station){
+        DAOFactory.getStationDAO().delete(station);
 
     }
-    public void editStation(Station station){
-        stationDAO.update(station);
+    public static void editStation(Station station){
+        DAOFactory.getStationDAO().update(station);
     }
-    public List<Station> getAllStations(){
-        return stationDAO.getAll();
+    public static List<Station> getAllStations(){
+        return DAOFactory.getStationDAO().getAll();
     }
 
-    public void createRoute(Route route){
-        routeDAO.insert(route);
+    public static void createRoute(Route route){
+        DAOFactory.getRouteDAO().insert(route);
+    }
+    public static void addWayStation(WayStation station){
+        DAOFactory.getWayStationDAO().insert(station);
     }
 }

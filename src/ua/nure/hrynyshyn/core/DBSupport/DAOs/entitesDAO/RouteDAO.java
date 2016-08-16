@@ -23,7 +23,7 @@ public class RouteDAO extends AbstractDAO<Route> {
 
     @Override
     protected String getUpdateQuery() {
-        return "UPDATE RAILWAY.ROUTE SET departStation_ID=?, departTime=?, destStation_ID=?, destTime=? WHERE route_ID=?";
+        return "UPDATE RAILWAY.ROUTES SET departStation_ID=?, departTime=?, destStation_ID=?, destTime=? WHERE route_ID=?";
     }
 
     @Override
