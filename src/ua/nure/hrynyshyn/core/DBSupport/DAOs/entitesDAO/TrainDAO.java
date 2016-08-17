@@ -16,7 +16,7 @@ import java.util.List;
 public class TrainDAO extends AbstractDAO<Train> {
     @Override
     protected String getInsertQuery() {
-        return "INSERT INTO RAILWAY.TRAINS (route_ID) VALUE ?";
+        return "INSERT INTO RAILWAY.TRAINS (route_ID) VALUES (?)";
     }
 
     @Override

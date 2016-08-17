@@ -18,8 +18,8 @@ import java.sql.Connection;
 /**
  * Created by GrynyshynRoman on 16.08.2016.
  */
-@WebServlet(name = "deleteWayStationServlet", urlPatterns = "/deleteWayStation")
-public class deleteWayStationServlet extends HttpServlet {
+@WebServlet(name = "deleteWayStation", urlPatterns = "/deleteWayStation")
+public class deleteWayStation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         WayStation station = new WayStation();
         station.setWayStation_ID(Integer.parseInt(request.getParameter("wayStationID")));
@@ -32,7 +32,7 @@ public class deleteWayStationServlet extends HttpServlet {
 
         cp.freeConnection(connection);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("administrator.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("routesEdit.jsp");
         dispatcher.forward(request, response);
     }
 

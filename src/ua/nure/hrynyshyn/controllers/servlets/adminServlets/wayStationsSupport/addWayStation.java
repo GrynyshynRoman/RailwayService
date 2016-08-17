@@ -20,8 +20,8 @@ import static ua.nure.hrynyshyn.core.supportClasses.dateTimeSupport.parseTime;
 /**
  * Created by GrynyshynRoman on 16.08.2016.
  */
-@WebServlet(name = "addWayStationServlet", urlPatterns = "/addWayStation")
-public class addWayStationServlet extends HttpServlet {
+@WebServlet(name = "addWayStation", urlPatterns = "/addWayStation")
+public class addWayStation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         WayStation station = new WayStation();
         station.setStation_ID(Integer.parseInt(request.getParameter("stationID")));
@@ -42,7 +42,7 @@ public class addWayStationServlet extends HttpServlet {
 
         cp.freeConnection(connection);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("administrator.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("routesEdit.jsp");
         dispatcher.forward(request, response);
     }
 

@@ -1,9 +1,8 @@
-package ua.nure.hrynyshyn.controllers.servlets.adminServlets.stationSupport;
+package ua.nure.hrynyshyn.controllers.servlets.adminServlets.trainsSupport;
 
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
 import ua.nure.hrynyshyn.core.DBSupport.connectionPool.ConnectionPool;
-import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
-import ua.nure.hrynyshyn.core.moderating.Administrator;
+import ua.nure.hrynyshyn.core.entities.railway.rollingStock.Train;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,24 +15,25 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 12.08.2016.
+ * Created by GrynyshynRoman on 18.08.2016.
  */
-@WebServlet(name = "deleteStationServlet", urlPatterns = "/deleteStation")
-public class deleteStationServlet extends HttpServlet {
+@WebServlet(name = "deleteTrain", urlPatterns = "/deleteTrain")
+public class deleteTrain extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Station station = new Station();
-        station.setStation_ID(Integer.parseInt(request.getParameter("id")));
+        request.setCharacterEncoding("UTF-8");
+
+        Train train = new Train();
+        train.setTrain_ID(Integer.parseInt(request.getParameter("train_ID")));
 
         ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("DBConnection");
         Connection connection = cp.getConnection();
+        DAOFactory.getTrainDAO(connection).delete(train);
 
-        DAOFactory.getStationDAO(connection).delete(station);
         HttpSession session = request.getSession();
-        session.setAttribute("stations", DAOFactory.getStationDAO(connection).getAll());
+        session.setAttribute("trains", DAOFactory.getTrainDAO(connection).getAll());
 
-        cp.freeConnection(connection
-        );
-        RequestDispatcher dispatcher = request.getRequestDispatcher("administrator.jsp");
+        cp.freeConnection(connection);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("trainsEdit.jsp");
         dispatcher.forward(request, response);
     }
 
