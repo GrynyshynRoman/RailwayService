@@ -15,28 +15,24 @@ import java.sql.SQLException;
  */
 public class DAOFactory {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/RAILWAY";
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
-    private static ConnectionPool dbcp = ConnectionPool.getInstance(URL, USER, PASSWORD, 20);
 
-    public static RouteDAO getRouteDAO() {
-        return new RouteDAO(dbcp.getConnection());
+    public static RouteDAO getRouteDAO(Connection connection) {
+        return new RouteDAO(connection);
     }
 
-    public static StationDAO getStationDAO() {
-        return new StationDAO(dbcp.getConnection());
+    public static StationDAO getStationDAO(Connection connection) {
+        return new StationDAO(connection);
     }
 
-    public static WayStationDAO getWayStationDAO() {
-        return new WayStationDAO(dbcp.getConnection());
+    public static WayStationDAO getWayStationDAO(Connection connection) {
+        return new WayStationDAO(connection);
     }
 
-    public static CarriageDAO getCarriageDAO() {
-        return new CarriageDAO(dbcp.getConnection());
+    public static CarriageDAO getCarriageDAO(Connection connection) {
+        return new CarriageDAO(connection);
     }
 
-    public static TrainDAO getTrainDAO() {
-        return new TrainDAO(dbcp.getConnection());
+    public static TrainDAO getTrainDAO(Connection connection) {
+        return new TrainDAO(connection);
     }
 }

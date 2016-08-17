@@ -15,16 +15,16 @@ import java.util.logging.Logger;
  */
 public class ConnectionPool {
     private static Logger log = Logger.getLogger(ConnectionPool.class.getName());
-    private static String DRIVER_NAME = "com.mysql.jdbc.Driver";
     private static ConnectionPool instance;
-    private static int clients;
 
-    private String URL, user, password;
+
+    private String driver, URL, user, password;
     private int maxConn;
-    //private PrintWriter log;
+
     private ArrayList<Connection> freeConnections = new ArrayList<>();
 
-    private ConnectionPool(String URL, String user, String password, int maxConn) {
+    private ConnectionPool(String driver, String URL, String user, String password, int maxConn) {
+        this.driver = driver;
         this.URL = URL;
         this.user = user;
         this.password = password;
@@ -36,7 +36,7 @@ public class ConnectionPool {
 
     private void loadDrivers() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(driver);
             log.info("Registered JDBC driver ");
         } catch (Exception e) {
             log.log(Level.SEVERE, "Can't register JDBC driver ", e);
@@ -44,11 +44,10 @@ public class ConnectionPool {
     }
 
     static synchronized public ConnectionPool
-    getInstance(String URL, String user, String password, int maxConn) {
+    getInstance(String driver, String URL, String user, String password, int maxConn) {
         if (instance == null) {
-            instance = new ConnectionPool(URL, user, password, maxConn);
+            instance = new ConnectionPool(driver, URL, user, password, maxConn);
         }
-        clients++;
         return instance;
     }
 
@@ -79,7 +78,7 @@ public class ConnectionPool {
     }
 
     private Connection newConnection() {
-        Connection con=null;
+        Connection con = null;
         try {
             if (user == null) {
                 con = DriverManager.getConnection(URL);
@@ -98,6 +97,16 @@ public class ConnectionPool {
         // Put the connection at the end of the List
         if ((con != null) && (freeConnections.size() <= maxConn)) {
             freeConnections.add(con);
+            log.log(Level.INFO, "Connection successfully free");
+        }else {
+            try {
+                con.close();
+                freeConnections.add(con);
+                log.log(Level.INFO, "Connection closed");
+            }catch (SQLException e){
+                log.log(Level.SEVERE, "Can't close connection", e);
+            }
+
         }
     }
 

@@ -3,28 +3,33 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <login-config>
-        <auth-method>BASIC</auth-method>
-    </login-config>
-    <security-role>
-        <role-name>Admin</role-name>
-    </security-role>
-    <security-role>
-        <role-name>Member</role-name>
-    </security-role>
-    <security-role>
-        <role-name>Guest</role-name>
-    </security-role>
 
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>UpdateRoutesAndStations</web-resource-name>
-            <url-pattern>/controllers/servlets/adminServlets/*</url-pattern>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>Admin</role-name>
-        </auth-constraint>
-    </security-constraint>
+    <!--Database connection init parameters-->
+    <context-param>
+        <param-name>DB_Driver</param-name>
+        <param-value>com.mysql.jdbc.Driver</param-value>
+    </context-param>
+    <context-param>
+        <param-name>DB_URL</param-name>
+        <param-value>jdbc:mysql://localhost:3306/RAILWAY</param-value>
+    </context-param>
+    <context-param>
+        <param-name>DB_User</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    <context-param>
+        <param-name>DB_Password</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    <context-param>
+        <param-name>Max_Conn</param-name>
+        <param-value>50</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>ua.nure.hrynyshyn.controllers.listeners.appInitListener</listener-class>
+    </listener>
+
+
+
 </web-app>

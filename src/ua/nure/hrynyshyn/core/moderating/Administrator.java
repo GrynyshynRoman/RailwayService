@@ -13,7 +13,7 @@ import java.util.List;
  * Created by HrynyshynRoman on 04.08.2016.
  */
 public class Administrator {
-
+/*
     public static void addStation(Station station){
         DAOFactory.getStationDAO().insert(station);
     }
@@ -34,4 +34,4 @@ public class Administrator {
     public static void addWayStation(WayStation station){
         DAOFactory.getWayStationDAO().insert(station);
     }
-}
+*/}
