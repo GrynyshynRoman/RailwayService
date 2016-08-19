@@ -1,14 +1,10 @@
 package ua.nure.hrynyshyn.core.DBSupport.DAOs;
 
 
-import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.*;
-import ua.nure.hrynyshyn.core.DBSupport.connectionPool.ConnectionPool;
-import ua.nure.hrynyshyn.core.entities.railway.realEstate.Route;
-import ua.nure.hrynyshyn.core.entities.railway.realEstate.WayStation;
+import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.railway.*;
+import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.service.UserDAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 /**
  * Created by GrynyshynRoman on 18.07.2016.
@@ -34,5 +30,8 @@ public class DAOFactory {
 
     public static TrainDAO getTrainDAO(Connection connection) {
         return new TrainDAO(connection);
+    }
+    public static UserDAO getUserDAO(Connection connection){
+        return new UserDAO(connection);
     }
 }

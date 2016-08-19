@@ -1,4 +1,4 @@
-package ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO;
+package ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.railway;
 
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.AbstractDAO;
 import ua.nure.hrynyshyn.core.entities.railway.rollingStock.Carriage;
@@ -49,6 +49,9 @@ public class CarriageDAO extends AbstractDAO<Carriage> {
             carriage.setTrain_ID(resultSet.getInt(2));
             carriage.setCarriageNumber(resultSet.getInt(3));
             carriage.setType(resultSet.getString(4));
+            carriage.setTotalSeats(resultSet.getInt(5));
+            carriage.setReservedSeats(resultSet.getInt(6));
+            carriages.add(carriage);
         }
         return carriages;
     }

@@ -1,4 +1,4 @@
-package ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO;
+package ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.railway;
 
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.AbstractDAO;
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.WayStation;

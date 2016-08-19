@@ -49,6 +49,17 @@ CREATE TABLE CARRIAGES (
   FOREIGN KEY (train_ID) REFERENCES trains(train_ID)
 );
 
+CREATE TABLE USERS(
+  user_ID INT NOT NULL AUTO_INCREMENT,
+  firstName VARCHAR(50) NOT NULL ,
+  lastName VARCHAR(50) NOT NULL ,
+  password VARCHAR(50) NOT NULL ,
+  PRIMARY KEY (user_ID)
+
+);
+
+
+
 SELECT *
 FROM RAILWAY.ROUTES;
 
@@ -57,3 +68,8 @@ FROM way_stations;
 
 SELECT *
 FROM trains;
+
+SELECT * FROM carriages;
+
+SELECT *
+FROM users;

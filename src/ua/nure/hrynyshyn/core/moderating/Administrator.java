@@ -1,14 +1,5 @@
 package ua.nure.hrynyshyn.core.moderating;
 
-import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
-import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.RouteDAO;
-import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.StationDAO;
-import ua.nure.hrynyshyn.core.entities.railway.realEstate.Route;
-import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
-import ua.nure.hrynyshyn.core.entities.railway.realEstate.WayStation;
-
-import java.util.List;
-
 /**
  * Created by HrynyshynRoman on 04.08.2016.
  */
