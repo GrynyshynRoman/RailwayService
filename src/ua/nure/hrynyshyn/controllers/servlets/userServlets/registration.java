@@ -22,6 +22,7 @@ import java.sql.Connection;
 public class registration extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user=new User();
+        user.setLogin(request.getParameter("login"));
         user.setFirstName(request.getParameter("firstName"));
         user.setLastName(request.getParameter("lastName"));
         user.setPassword(request.getParameter("password"));

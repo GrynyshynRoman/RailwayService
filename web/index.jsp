@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: GrynyshynRoman
@@ -25,7 +26,7 @@
                 </form>
             </td>
             <td>
-                <jsp:include page="loginForm.html"/>
+                <jsp:include page="profileBar.jsp"/>
             </td>
         </tr>
     </table>

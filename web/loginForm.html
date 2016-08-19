@@ -1,7 +1,20 @@
 Enter:
-<form action="j_security_check" method="post">
-    e-mail: <input placeholder="login:" type="text" size="20" name="j_username"><br>
-    password: <input placeholder="password:" type="password" name="j_password"><br>
-    <input type="submit" value="Log in">
+<form action="login" method="post">
+    <table>
+        <tr>
+            <td align="left">Login:</td>
+            <td align="right"><input type="text" name="login"></td>
+        </tr>
+        <tr>
+            <td align="left">Password:</td>
+            <td align="right"><input type="password" name="password"></td>
+        </tr>
+    </table>
+    <div align="center">
+        <input type="submit" value="Log in">
+    </div>
 </form>
+<div align="center">
     <a href="registration.jsp">Register</a>
+</div>
+

@@ -14,9 +14,22 @@ import java.util.List;
  * Created by GrynyshynRoman on 18.08.2016.
  */
 public class UserDAO extends AbstractDAO<User> {
+    public User getByLogin(String login) {
+        String sql = "SELECT * FROM users WHERE login=?";
+        List<User> users = null;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, login);
+            users = parseResultSet(statement.executeQuery());
+        } catch (SQLException e) {
+
+        }
+        return users.iterator().next();
+
+    }
+
     @Override
     protected String getInsertQuery() {
-        return "INSERT INTO users(firstName, lastName, password) VALUES (?,?,?)";
+        return "INSERT INTO users(login, firstName, lastName, password) VALUES (?,?,?,?)";
     }
 
     @Override
@@ -26,7 +39,7 @@ public class UserDAO extends AbstractDAO<User> {
 
     @Override
     protected String getUpdateQuery() {
-        return "UPDATE RAILWAY.USERS SET user_ID=?, firstName=?,lastName=?, password=? WHERE user_ID=?";
+        return "UPDATE RAILWAY.USERS SET login=? firstName=?,lastName=?, password=? WHERE user_ID=?";
     }
 
     @Override
@@ -55,17 +68,19 @@ public class UserDAO extends AbstractDAO<User> {
 
     @Override
     protected void prepareInsertStatement(PreparedStatement statement, User object) throws SQLException {
-        statement.setString(1, object.getFirstName());
-        statement.setString(2, object.getLastName());
-        statement.setString(3, object.getPassword());
+        statement.setString(1, object.getLogin());
+        statement.setString(2, object.getFirstName());
+        statement.setString(3, object.getLastName());
+        statement.setString(4, object.getPassword());
     }
 
     @Override
     protected void prepareUpdateStatement(PreparedStatement statement, User object) throws SQLException {
-        statement.setString(1, object.getFirstName());
-        statement.setString(2, object.getLastName());
-        statement.setString(3, object.getPassword());
-        statement.setInt(4, object.getUser_ID());
+        statement.setString(1, object.getLogin());
+        statement.setString(2, object.getFirstName());
+        statement.setString(3, object.getLastName());
+        statement.setString(4, object.getPassword());
+        statement.setInt(5, object.getUser_ID());
     }
 
     @Override
@@ -73,6 +88,7 @@ public class UserDAO extends AbstractDAO<User> {
         statement.setInt(1, object.getUser_ID());
     }
 
-    public UserDAO(Connection connection) { super.connection=connection;
+    public UserDAO(Connection connection) {
+        super.connection = connection;
     }
 }

@@ -14,7 +14,7 @@
 <h1>Error</h1>
 <div>
     <p class="error">Login error</p>
-    <strong><a href="login.jsp">Back</a></strong>.</p>
+    <strong><a href="index.jsp">Back</a></strong>.</p>
 </div>
 </body>
 </html>

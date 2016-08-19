@@ -5,9 +5,11 @@ package ua.nure.hrynyshyn.core.entities.service;
  */
 public class User {
     private int user_ID;
+    private String login;
     private String firstName;
     private String lastName;
     private String password;
+    private boolean isLogged;
 
     public int getUser_ID() {
         return user_ID;
@@ -15,6 +17,14 @@ public class User {
 
     public void setUser_ID(int user_ID) {
         this.user_ID = user_ID;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getFirstName() {
@@ -39,5 +49,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isLogged() {
+        return isLogged;
+    }
+
+    public void setLogged(boolean logged) {
+        isLogged = logged;
     }
 }
