@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.logging.Level;
 
 /**
  * Created by GrynyshynRoman on 18.08.2016.
@@ -21,10 +23,25 @@ public class UserDAO extends AbstractDAO<User> {
             statement.setString(1, login);
             users = parseResultSet(statement.executeQuery());
         } catch (SQLException e) {
-
+            log.log(Level.INFO, "Can't find element", e);
         }
-        return users.iterator().next();
+        if (users.size() != 0) {
+            return users.iterator().next();
+        } else return null;
+    }
 
+    public List<String> getLogins(){
+        String slq="SELECT  login FROM users";
+        List<String> logins=new ArrayList<>();
+        try (PreparedStatement statement=connection.prepareStatement(slq)){
+            ResultSet rs=statement.executeQuery();
+            while (rs.next()){
+                logins.add(rs.getString(1));
+            }
+        }catch (SQLException e){
+            log.log(Level.INFO,"Problems during processing with database", e);
+        }
+        return logins;
     }
 
     @Override
@@ -58,9 +75,10 @@ public class UserDAO extends AbstractDAO<User> {
         while (resultSet.next()) {
             User user = new User();
             user.setUser_ID(resultSet.getInt(1));
-            user.setFirstName(resultSet.getString(2));
-            user.setLastName(resultSet.getString(3));
-            user.setPassword(resultSet.getString(4));
+            user.setLogin(resultSet.getString(2));
+            user.setFirstName(resultSet.getString(3));
+            user.setLastName(resultSet.getString(4));
+            user.setPassword(resultSet.getString(5));
             users.add(user);
         }
         return users;

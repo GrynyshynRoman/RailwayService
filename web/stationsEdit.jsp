@@ -10,41 +10,61 @@
 <html>
 <head>
     <title>Stations</title>
+    <link rel="stylesheet" href="test.css">
 </head>
 <body>
-<table border="1">
+<jsp:include page="adminPanel.html"></jsp:include>
+<br>
+<br>
+<table align="center" width="80%">
     <tr>
         <td>
             Add station:<br>
             <form action="addStation" method="post">
-                Name: <input type="text" name="name"><br>
-                City: <input type="text" name="city"><br>
-                State: <input type="text" name="state"><br>
-                Country:<input type="text" name="country"><br>
-                <input type="submit" value="Add">
+                <div>
+                    <label>Name:</label><input type="text" name="name">
+                    <label>City:</label> <input type="text" name="city">
+                    <label>State:</label> <input type="text" name="state">
+                    <label>Country:</label><input type="text" name="country">
+                    <label></label><input type="submit" value="Add">
+                </div>
+                <br>
+
+
             </form>
         </td>
         <td>
             Edit station:<br>
             <form action="editStation" method="post">
-                ID: <input type="text" name="id"><br>
-                Name: <input type="text" name="name"><br>
-                City: <input type="text" name="city"><br>
-                State: <input type="text" name="state"><br>
-                Country:<input type="text" name="country"><br>
-                <input type="submit" value="Add">
+                <div>
+                    <label>ID:</label> <input type="text" name="id">
+                    <label>Name:</label><input type="text" name="name">
+                    <label>City:</label> <input type="text" name="city">
+                    <label>State:</label> <input type="text" name="state">
+                    <label>Country:</label><input type="text" name="country">
+                    <label></label><input type="submit" value="Add">
+                </div>
+                <br>
+
             </form>
         </td>
         <td>
             Delete station:<br>
             <form action="deleteStation" method="post">
-                ID: <input type="text" name="id">
-                <input type="submit" value="Delete">
+                <div>
+                    <label>ID:</label> <input type="text" name="id">
+                    <label></label><input type="submit" value="Delete">
+                </div>
             </form>
         </td>
     </tr>
 </table>
-<table border="1">
+<br>
+<br>
+<h3 align="center">Stations</h3>
+<br>
+
+<table border="1" align="center" width="80%">
     <tr>
         <td>ID</td>
         <td>Name</td>
@@ -59,15 +79,6 @@
             <td>${station.city}</td>
             <td>${station.state}</td>
             <td>${station.country}</td>
-            <td>
-                <form action="deleteStation" method="post">
-                    <input type="text" name="id" value="${station.station_ID}" hidden>
-                    <input type="submit" value="Delete">
-                </form>
-                <form action="editStation" method="post">
-                    <input type="submit" value="Edit">
-                </form>
-            </td>
         </tr>
     </c:forEach>
 </table>

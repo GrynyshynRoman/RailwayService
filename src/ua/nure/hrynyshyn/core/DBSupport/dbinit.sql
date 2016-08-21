@@ -58,7 +58,17 @@ CREATE TABLE USERS(
   PRIMARY KEY (user_ID)
 
 );
+CREATE TABLE ROLES(
+  role_ID INT NOT NULL AUTO_INCREMENT,
+  login VARCHAR(50) NOT NULL UNIQUE ,
+  role VARCHAR(20) NOT NULL ,
+  PRIMARY KEY (role_ID),
+  FOREIGN KEY (login) REFERENCES users(login)
+);
 
+UPDATE roles SET role='admin' WHERE login='admin';
+
+SELECT * FROM railway.users;
 
 
 SELECT *

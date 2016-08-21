@@ -10,77 +10,85 @@
 <html>
 <head>
     <title>Trains edit</title>
+    <link rel="stylesheet" href="test.css">
 </head>
 <body>
-<table>
+<jsp:include page="adminPanel.html"></jsp:include>
+<table align="center" width="100%">
     <tr>
         <td>
             Add train:<br>
             <form action="addTrain" method="post">
-                Route id: <input type="text" name="route_ID"><br>
-                <input type="submit" value="Add">
+                <div>
+                    <label>Route id: </label><input type="text" name="route_ID">
+                    <label></label><input type="submit" value="Add">
+                </div>
             </form>
         </td>
         <td>
             Edit train:<br>
             <form action="editTrain" method="post">
-                ID: <input type="text" name="train_ID"><br>
-                Route id: <input type="text" name="route_ID"><br>
-                <input type="submit" value="Edit">
+                <label>ID:</label> <input type="text" name="train_ID">
+                <label>Route id:</label> <input type="text" name="route_ID">
+                <label></label><input type="submit" value="Edit">
             </form>
         </td>
         <td>
             Delete train:<br>
             <form action="deleteTrain" method="post">
-                ID: <input type="text" name="train_ID"><br>
-                <input type="submit" value="Delete">
+                <label>ID:</label> <input type="text" name="train_ID">
+                <label></label><input type="submit" value="Delete">
             </form>
         </td>
     </tr>
+    </table>
+<table align="center" width="100%">
     <tr>
         <td>
             Add carriage:<br>
             <form action="addCarriage" method="post">
-                Train id: <input type="text" name="train_ID"><br>
-                Carriage number: <input type="text" name="carriageNumber"><br>
-                Type:
-                <select name="type"><br>
+                <label>Train </label> <input type="text" name="train_ID">
+                <label>Carriage number:</label> <input type="text" name="carriageNumber">
+                <label>Type:</label>
+                <select name="type">
                     <option value="common">Common</option>
                     <option value="reservedSeat">Reserved seat</option>
                     <option value="coupe">Coupe</option>
-                </select><br>
-                Total seats: <input type="text" name="totalSeats"><br>
-                Reserved seats: <input type="text" name="reservedSeats"><br>
-                <input type="submit" value="Add">
+                </select>
+                <label>Total seats:</label> <input type="text" name="totalSeats">
+                <label>Reserved seats:</label> <input type="text" name="reservedSeats">
+                <label></label> <input type="submit" value="Add">
             </form>
         </td>
         <td>
             Edit carriage:<br>
             <form action="editCarriage" method="post">
-                Carriage id: <input type="text" name="carriage_ID"><br>
-                Train id: <input type="text" name="train_ID"><br>
-                Carriage number: <input type="text" name="carriageNumber"><br>
-                Type:
+                <label> Carriage id:</label> <input type="text" name="carriage_ID">
+                <label> Train id:</label> <input type="text" name="train_ID">
+                <label> Carriage number: </label><input type="text" name="carriageNumber">
+                <label> Type:</label>
                 <select name="type">
                     <option value="common">Common</option>
                     <option value="reservedSeat">Reserved seat</option>
                     <option value="coupe">Coupe</option>
-                </select><br>
-                Total seats: <input type="text" name="totalSeats"><br>
-                Reserved seats: <input type="text" name="reservedSeats"><br>
-                <input type="submit" value="Edit">
+                </select>
+                <label> Total seats:</label> <input type="text" name="totalSeats">
+                <label> Reserved seats:</label> <input type="text" name="reservedSeats">
+                <label></label> <input type="submit" value="Edit">
             </form>
         </td>
         <td>
             Delete carriage:<br>
             <form action="deleteCarriage" method="post">
-                Carriage id: <input type="text" name="carriage_ID"><br>
-                <input type="submit" value="Delete">
+                <label> Carriage id:</label> <input type="text" name="carriage_ID">
+                <label></label> <input type="submit" value="Delete">
             </form>
         </td>
     </tr>
 </table>
-<table>
+<br>
+<br>
+<table align="center" width="100%">
     <tr>
         <td>
             <table border="1">

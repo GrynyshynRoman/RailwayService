@@ -11,74 +11,100 @@
 <html>
 <head>
     <title>Routes edit</title>
+    <link rel="stylesheet" href="test.css">
 </head>
 <body>
+<jsp:include page="adminPanel.html"></jsp:include>
 Routes management:
-<table border="1">
+<table align="center" width="80%">
     <tr>
         <td>
             Create route:<br>
             <form action="createRoute" method="post">
-                Department station id: <input type="text" name="deptStationID"><br>
-                Department time: <input type="date" name="deptDate"> <input type="time" name="deptTime"><br>
-                Destination station id: <input type="text" name="destStationID"><br>
-                Destination time: <input type="date" name="destDate"><input type="time" name="destTime"><br>
-                <input type="submit" value="Create">
+                <div>
+                    <label>Department station id:</label><input type="text" name="deptStationID">
+                    <label>Department time:</label><input type="date" name="deptDate"> <input type="time"
+                                                                                              name="deptTime">
+                    <label>Destination station id:</label><input type="text" name="destStationID">
+                    <label>Destination time:</label><input type="date" name="destDate"><input type="time"
+                                                                                              name="destTime">
+                    <label></label><input type="submit" value="Create">
+                </div>
             </form>
         </td>
         <td>
             Edit route:<br>
             <form action="editRoute" method="post">
-                Route id: <input type="text" name="routeID"><br>
-                Department station id: <input type="text" name="deptStationID"><br>
-                Department time: <input type="date" name="deptDate"> <input type="time" name="deptTime"><br>
-                Destination station id: <input type="text" name="destStationID"><br>
-                Destination time: <input type="date" name="destDate"><input type="time" name="destTime"><br>
-                <input type="submit" value="Edit">
+                <div>
+                    <label>Route id:</label><input type="text" name="routeID">
+                    <label>Department station id:</label><input type="text" name="deptStationID">
+                    <label>Department time:</label><input type="date" name="deptDate"> <input type="time"
+                                                                                              name="deptTime">
+                    <label> Destination station id:</label><input type="text" name="destStationID">
+                    <label>Destination time:</label><input type="date" name="destDate"><input type="time"
+                                                                                              name="destTime">
+                    <label></label><input type="submit" value="Edit">
+                </div>
             </form>
         </td>
         <td>
             Delete route:
             <form action="deleteRoute" method="post">
-                Route id: <input type="text" name="routeID"><br>
-                <input type="submit" value="Delete">
+                <div>
+                    <label>Route id:</label><input type="text" name="routeID">
+                    <label></label><input type="submit" value="Delete"></div>
+
             </form>
         </td>
     </tr>
+</table>
+<br>
+<br>
+<table align="center" width="80%">
     <tr>
         <td>
             Add way station:<br>
             <form action="addWayStation" method="post">
-                Route ID: <input type="text" name="routeID"><br>
-                Station ID: <input type="text" name="stationID"><br>
-                Arrival time: <input type="date" name="arrivDate"> <input type="time" name="arrivTime"><br>
-                Department time: <input type="date" name="deptDate"> <input type="time" name="deptTime"><br>
-                Waiting time: <input type="time" name="waitingTime"><br>
-                <input type="submit" value="Add">
+                <div>
+                    <label>Route ID:</label> <input type="text" name="routeID">
+                    <label>Station ID:</label> <input type="text" name="stationID">
+                    <label>Arrival time:</label> <input type="date" name="arrivDate"> <input type="time"
+                                                                                             name="arrivTime">
+                    <label>Department time:</label> <input type="date" name="deptDate"> <input type="time"
+                                                                                               name="deptTime">
+                    <label>Waiting time:</label> <input type="time" name="waitingTime">
+                    <label></label><input type="submit" value="Add">
+                </div>
             </form>
         </td>
         <td>
             Edit way station: <br>
             <form action="editWayStation" method="post">
-                Way station id: <input type="text" name="wayStationID"><br>
-                Route ID: <input type="text" name="routeID"><br>
-                Station ID: <input type="text" name="stationID"><br>
-                Arrival time: <input type="date" name="arrivDate"> <input type="time" name="arrivTime"><br>
-                Department time: <input type="date" name="deptDate"> <input type="time" name="deptTime"><br>
-                Waiting time: <input type="time" name="waitingTime"><br>
-                <input type="submit" value="Edit">
+                <div>
+                    <label>Way station id:</label> <input type="text" name="wayStationID">
+                    <label>Route ID:</label> <input type="text" name="routeID">
+                    <label>Station ID: </label><input type="text" name="stationID">
+                    <label>Arrival time:</label> <input type="date" name="arrivDate"> <input type="time"
+                                                                                             name="arrivTime">
+                    <label>Department time:</label> <input type="date" name="deptDate"> <input type="time"
+                                                                                               name="deptTime">
+                    <label>Waiting time: </label><input type="time" name="waitingTime">
+                    <label></label><input type="submit" value="Edit">
+                </div>
             </form>
         </td>
         <td>
             Delete way station: <br>
             <form action="deleteWayStation" method="post">
-                Way station id: <input type="text" name="wayStationID"><br>
-                <input type="submit" value="Delete">
+                <div>
+                    <label>Way station id:</label> <input type="text" name="wayStationID"><br>
+                    <label></label><input type="submit" value="Delete">
+                </div>
             </form>
         </td>
     </tr>
 </table>
-<table>
+<table align="center" width="80%">
     <tr>
         <td>
             Routes:
@@ -105,15 +131,6 @@ Routes management:
                             <jsp:setProperty name="destTime" property="time" value="${route.destTime}"/>
                             <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${destTime}"/>
                         </td>
-                        <!--<td>
-                        <form action="deleteStation" method="post">
-                            <input type="text" name="id" value="${station.station_ID}" hidden>
-                            <input type="submit" value="Delete">
-                        </form>
-                        <form action="editStation" method="post">
-                            <input type="submit" value="Edit">
-                        </form>
-                    </td>-->
                     </tr>
                 </c:forEach>
             </table>
@@ -149,15 +166,6 @@ Routes management:
                             <jsp:setProperty name="waitTime" property="time" value="${wayStation.waitingTime}"/>
                             <fmt:formatDate pattern="HH:mm" value="${waitTime}"/>
                         </td>
-                        <!--<td>
-                        <form action="deleteStation" method="post">
-                            <input type="text" name="id" value="${station.station_ID}" hidden>
-                            <input type="submit" value="Delete">
-                        </form>
-                        <form action="editStation" method="post">
-                            <input type="submit" value="Edit">
-                        </form>
-                    </td>-->
                     </tr>
                 </c:forEach>
             </table>

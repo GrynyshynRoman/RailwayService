@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * Created by GrynyshynRoman on 18.07.2016.
  */
 public abstract class AbstractDAO<T> implements GenericDAO<T> {
-    private static Logger log = Logger.getLogger(AbstractDAO.class.getName());
+    protected static Logger log = Logger.getLogger(AbstractDAO.class.getName());
 
     protected Connection connection;
 

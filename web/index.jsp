@@ -13,6 +13,9 @@
 </head>
 <body>
 <h1 align=center> RAILWAY </h1>
+<c:if test="${sessionScope.role.role eq 'admin'}">
+    <jsp:include page="adminPanel.html"></jsp:include>
+</c:if>
 <div align=center>
     <table border="1">
         <tr>
