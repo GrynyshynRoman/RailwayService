@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="test.css">
 </head>
 <body>
-<jsp:include page="adminPanel.html"></jsp:include>
+<%@include file="adminPanel.html"%>
 <table align="center" width="100%">
     <tr>
         <td>
@@ -142,6 +142,5 @@
     </tr>
 </table>
 
-<jsp:include page="toAdminHome.html"></jsp:include>
 </body>
 </html>

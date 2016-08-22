@@ -1,9 +1,9 @@
-package ua.nure.hrynyshyn.controllers.servlets.adminServlets.trainsSupport;
+package ua.nure.hrynyshyn.controllers.servlets.adminServlets.carriages;
 
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
+import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.railway.CarriageDAO;
 import ua.nure.hrynyshyn.core.DBSupport.connectionPool.ConnectionPool;
-import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
-import ua.nure.hrynyshyn.core.entities.railway.rollingStock.Train;
+import ua.nure.hrynyshyn.core.entities.railway.rollingStock.Carriage;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,25 +18,25 @@ import java.sql.Connection;
 /**
  * Created by GrynyshynRoman on 18.08.2016.
  */
-@WebServlet(name = "addTrain", urlPatterns = "/addTrain")
-public class addTrain extends HttpServlet {
+@WebServlet(name = "addCarriage", urlPatterns = "/addCarriage")
+public class AddCarriage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         request.setCharacterEncoding("UTF-8");
-
-        Train train=new Train();
-        train.setRoute_ID(Integer.parseInt(request.getParameter("route_ID")));
+        Carriage carriage=new Carriage();
+        carriage.setTrain_ID(Integer.parseInt(request.getParameter("train_ID")));
+        carriage.setCarriageNumber(Integer.parseInt(request.getParameter("carriageNumber")));
+        carriage.setType(request.getParameter("type"));
+        carriage.setTotalSeats(Integer.parseInt(request.getParameter("totalSeats")));
+        carriage.setReservedSeats(Integer.parseInt(request.getParameter("reservedSeats")));
 
         ConnectionPool cp=(ConnectionPool)getServletContext().getAttribute("DBConnection");
         Connection connection=cp.getConnection();
-        DAOFactory.getTrainDAO(connection).insert(train);
 
-        HttpSession session = request.getSession();
-        session.setAttribute("trains", DAOFactory.getTrainDAO(connection).getAll());
-
+        CarriageDAO carriageDAO= DAOFactory.getCarriageDAO(connection);
+        carriageDAO.insert(carriage);
         cp.freeConnection(connection);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("trainsEdit.jsp");
-        dispatcher.forward(request, response);
+
+        response.sendRedirect("trainsEdit.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

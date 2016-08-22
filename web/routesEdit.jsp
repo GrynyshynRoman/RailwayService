@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="test.css">
 </head>
 <body>
-<jsp:include page="adminPanel.html"></jsp:include>
+<%@include file="adminPanel.html"%>
 Routes management:
 <table align="center" width="80%">
     <tr>
@@ -173,6 +173,5 @@ Routes management:
     </tr>
 </table>
 
-<jsp:include page="toAdminHome.html"></jsp:include>
 </body>
 </html>

@@ -14,16 +14,17 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 
-import static ua.nure.hrynyshyn.core.supportClasses.dateTimeSupport.parseDate;
-import static ua.nure.hrynyshyn.core.supportClasses.dateTimeSupport.parseTime;
+import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseDate;
+import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseTime;
 
 /**
  * Created by GrynyshynRoman on 16.08.2016.
  */
-@WebServlet(name = "addWayStation", urlPatterns = "/addWayStation")
-public class addWayStation extends HttpServlet {
+@WebServlet(name = "editWayStation", urlPatterns = "/editWayStation")
+public class EditWayStation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         WayStation station = new WayStation();
+        station.setWayStation_ID(Integer.parseInt(request.getParameter("wayStationID")));
         station.setStation_ID(Integer.parseInt(request.getParameter("stationID")));
         station.setRoute_ID(Integer.parseInt(request.getParameter("routeID")));
         station.setArrivalTime(parseDate(request.getParameter("arrivDate"))
@@ -35,15 +36,10 @@ public class addWayStation extends HttpServlet {
         ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("DBConnection");
         Connection connection = cp.getConnection();
 
-        DAOFactory.getWayStationDAO(connection).insert(station);
-        HttpSession session = request.getSession();
-        session.setAttribute("wayStations", DAOFactory.getWayStationDAO(connection).getAll());
-
-
+        DAOFactory.getWayStationDAO(connection).update(station);
         cp.freeConnection(connection);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("routesEdit.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect("routesEdit.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

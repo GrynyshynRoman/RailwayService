@@ -22,7 +22,7 @@ import java.util.List;
  * Created by GrynyshynRoman on 18.08.2016.
  */
 @WebServlet(name = "registration", urlPatterns = "/registration")
-public class registration extends HttpServlet {
+public class Registration extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         User user = new User();

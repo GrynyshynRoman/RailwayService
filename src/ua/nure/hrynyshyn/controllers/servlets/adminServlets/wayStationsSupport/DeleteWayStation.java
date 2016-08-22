@@ -1,7 +1,9 @@
-package ua.nure.hrynyshyn.controllers.servlets.adminServlets.supportServlets;
+package ua.nure.hrynyshyn.controllers.servlets.adminServlets.wayStationsSupport;
 
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
 import ua.nure.hrynyshyn.core.DBSupport.connectionPool.ConnectionPool;
+import ua.nure.hrynyshyn.core.entities.railway.realEstate.Route;
+import ua.nure.hrynyshyn.core.entities.railway.realEstate.WayStation;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,25 +16,23 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 17.08.2016.
+ * Created by GrynyshynRoman on 16.08.2016.
  */
-@WebServlet(name = "routesEdit",urlPatterns = "/routesEdit")
-public class routesEdit extends HttpServlet {
+@WebServlet(name = "deleteWayStation", urlPatterns = "/deleteWayStation")
+public class DeleteWayStation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        WayStation station = new WayStation();
+        station.setWayStation_ID(Integer.parseInt(request.getParameter("wayStationID")));
         ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("DBConnection");
         Connection connection = cp.getConnection();
 
-
-        HttpSession session = request.getSession();
-        session.setAttribute("routes", DAOFactory.getRouteDAO(connection).getAll());
-        session.setAttribute("wayStations", DAOFactory.getWayStationDAO(connection).getAll());
+        DAOFactory.getWayStationDAO(connection).delete(station);
         cp.freeConnection(connection);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("routesEdit.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect("routesEdit.jsp");
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }

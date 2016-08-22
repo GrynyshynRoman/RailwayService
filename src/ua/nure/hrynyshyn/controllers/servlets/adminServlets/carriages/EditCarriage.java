@@ -18,11 +18,12 @@ import java.sql.Connection;
 /**
  * Created by GrynyshynRoman on 18.08.2016.
  */
-@WebServlet(name = "addCarriage", urlPatterns = "/addCarriage")
-public class addCarriage extends HttpServlet {
+@WebServlet(name = "editCarriage", urlPatterns = "/editCarriage")
+public class EditCarriage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
         Carriage carriage=new Carriage();
+        carriage.setCarriage_ID(Integer.parseInt(request.getParameter("carriage_ID")));
         carriage.setTrain_ID(Integer.parseInt(request.getParameter("train_ID")));
         carriage.setCarriageNumber(Integer.parseInt(request.getParameter("carriageNumber")));
         carriage.setType(request.getParameter("type"));
@@ -33,14 +34,11 @@ public class addCarriage extends HttpServlet {
         Connection connection=cp.getConnection();
 
         CarriageDAO carriageDAO= DAOFactory.getCarriageDAO(connection);
-        carriageDAO.insert(carriage);
+        carriageDAO.update(carriage);
 
-        HttpSession session=request.getSession();
-        session.setAttribute("carriages",carriageDAO.getAll());
         cp.freeConnection(connection);
 
-        RequestDispatcher dispatcher=request.getRequestDispatcher("trainsEdit.jsp");
-        dispatcher.forward(request,response);
+        response.sendRedirect("trainsEdit.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

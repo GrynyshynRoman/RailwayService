@@ -9,11 +9,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class CarriageDAO extends AbstractDAO<Carriage> {
+    public boolean deleteByTrainID(int id){
+        String sql="DELETE FROM carriages WHERE train_ID=?";
+        try(PreparedStatement statement=connection.prepareStatement(sql)){
+            statement.setInt(1,id);
+            statement.execute();
+        }catch (SQLException e){
+            log.log(Level.INFO, "Can't delete carriages", e);
+            return false;
+        }
+        return true;
+    }
     @Override
     protected String getInsertQuery() {
         return "INSERT INTO RAILWAY.CARRIAGES (train_ID, carriageNumber, type, totalSeats, reservedSeats)"

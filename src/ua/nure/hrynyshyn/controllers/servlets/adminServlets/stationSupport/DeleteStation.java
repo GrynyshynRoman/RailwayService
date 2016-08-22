@@ -1,9 +1,9 @@
-package ua.nure.hrynyshyn.controllers.servlets.adminServlets.wayStationsSupport;
+package ua.nure.hrynyshyn.controllers.servlets.adminServlets.stationSupport;
 
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
 import ua.nure.hrynyshyn.core.DBSupport.connectionPool.ConnectionPool;
-import ua.nure.hrynyshyn.core.entities.railway.realEstate.Route;
-import ua.nure.hrynyshyn.core.entities.railway.realEstate.WayStation;
+import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
+import ua.nure.hrynyshyn.core.moderating.Administrator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,24 +16,24 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 16.08.2016.
+ * Created by GrynyshynRoman on 12.08.2016.
  */
-@WebServlet(name = "deleteWayStation", urlPatterns = "/deleteWayStation")
-public class deleteWayStation extends HttpServlet {
+@WebServlet(name = "deleteStation", urlPatterns = "/deleteStation")
+public class DeleteStation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        WayStation station = new WayStation();
-        station.setWayStation_ID(Integer.parseInt(request.getParameter("wayStationID")));
+        Station station = new Station();
+        station.setStation_ID(Integer.parseInt(request.getParameter("id")));
+
         ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("DBConnection");
         Connection connection = cp.getConnection();
 
-        DAOFactory.getWayStationDAO(connection).delete(station);
-        HttpSession session = request.getSession();
-        session.setAttribute("wayStations", DAOFactory.getWayStationDAO(connection).getAll());
-
+        boolean isDeleted = DAOFactory.getStationDAO(connection).delete(station);
+        if (!isDeleted){
+            request.getSession().setAttribute("isStationDeleted",isDeleted);
+        }
         cp.freeConnection(connection);
+        response.sendRedirect("stationsEdit.jsp");
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("routesEdit.jsp");
-        dispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

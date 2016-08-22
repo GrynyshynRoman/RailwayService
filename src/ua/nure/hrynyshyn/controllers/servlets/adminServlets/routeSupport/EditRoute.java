@@ -14,14 +14,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 
-import static ua.nure.hrynyshyn.core.supportClasses.dateTimeSupport.parseDate;
-import static ua.nure.hrynyshyn.core.supportClasses.dateTimeSupport.parseTime;
+import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseDate;
+import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseTime;
 
 /**
  * Created by GrynyshynRoman on 16.08.2016.
  */
 @WebServlet(name = "editRoute", urlPatterns = "/editRoute")
-public class editRoute extends HttpServlet {
+public class EditRoute extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Route route = new Route();
         route.setRoute_ID(Integer.parseInt(request.getParameter("routeID")));
@@ -38,10 +38,9 @@ public class editRoute extends HttpServlet {
         Connection connection = cp.getConnection();
 
         DAOFactory.getRouteDAO(connection).update(route);
-        HttpSession session = request.getSession();
-        session.setAttribute("routes", DAOFactory.getRouteDAO(connection).getAll());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("routesEdit.jsp");
-        dispatcher.forward(request, response);
+        cp.freeConnection(connection);
+
+        response.sendRedirect("routesEdit.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

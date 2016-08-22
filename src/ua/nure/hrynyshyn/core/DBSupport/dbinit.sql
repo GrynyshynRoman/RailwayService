@@ -46,29 +46,35 @@ CREATE TABLE CARRIAGES (
   totalSeats     INT NOT NULL,
   reservedSeats  INT NOT NULL,
   PRIMARY KEY (carriage_ID),
-  FOREIGN KEY (train_ID) REFERENCES trains(train_ID)
+  FOREIGN KEY (train_ID) REFERENCES trains (train_ID)
 );
 
-CREATE TABLE USERS(
-  user_ID INT NOT NULL AUTO_INCREMENT,
-  login VARCHAR(50) NOT NULL UNIQUE ,
-  firstName VARCHAR(50) NOT NULL ,
-  lastName VARCHAR(50) NOT NULL ,
-  password VARCHAR(50) NOT NULL ,
+CREATE TABLE USERS (
+  user_ID   INT         NOT NULL AUTO_INCREMENT,
+  login     VARCHAR(50) NOT NULL UNIQUE,
+  firstName VARCHAR(50) NOT NULL,
+  lastName  VARCHAR(50) NOT NULL,
+  password  VARCHAR(50) NOT NULL,
   PRIMARY KEY (user_ID)
 
 );
-CREATE TABLE ROLES(
-  role_ID INT NOT NULL AUTO_INCREMENT,
-  login VARCHAR(50) NOT NULL UNIQUE ,
-  role VARCHAR(20) NOT NULL ,
+CREATE TABLE ROLES (
+  role_ID INT         NOT NULL AUTO_INCREMENT,
+  login   VARCHAR(50) NOT NULL UNIQUE,
+  role    VARCHAR(20) NOT NULL,
   PRIMARY KEY (role_ID),
-  FOREIGN KEY (login) REFERENCES users(login)
+  FOREIGN KEY (login) REFERENCES users (login)
 );
 
-UPDATE roles SET role='admin' WHERE login='admin';
+UPDATE roles
+SET role = 'admin'
+WHERE login = 'admin';
 
-SELECT * FROM railway.users;
+SELECT *
+FROM railway.users;
+
+DELETE FROM way_stations
+WHERE route_ID = ?
 
 
 SELECT *
@@ -80,8 +86,16 @@ FROM way_stations;
 SELECT *
 FROM trains;
 
-SELECT * FROM carriages;
+SELECT *
+FROM carriages;
 
 SELECT *
 FROM users;
 DROP TABLE users;
+
+SELECT routes.route_ID,
+FROM routes
+   JOIN way_stations ON routes.route_ID = way_stations.route_ID
+WHERE ((departStation_ID = ? AND departTime = ?) OR (station_ID=? AND departTime=? ))AND (destStation_ID = ? OR station_ID = ?);
+
+SELECT * FROM routes JOIN way_stations ON routes.route_ID=way_stations.route_ID;

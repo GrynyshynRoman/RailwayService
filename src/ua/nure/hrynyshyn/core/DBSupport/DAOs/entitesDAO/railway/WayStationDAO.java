@@ -7,11 +7,23 @@ import ua.nure.hrynyshyn.core.entities.railway.realEstate.WayStation;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class WayStationDAO extends AbstractDAO<WayStation> {
+    public boolean deleteByRouteID(int id){
+        String sql="DELETE FROM way_stations WHERE route_ID=?";
+        try(PreparedStatement statement=connection.prepareStatement(sql)){
+            statement.setInt(1,id);
+            statement.execute();
+        }catch (SQLException e){
+            log.log(Level.INFO, "Can't delete stations", e);
+            return false;
+        }
+        return true;
+    }
     @Override
     protected String getInsertQuery() {
         return "INSERT INTO RAILWAY.WAY_STATIONS (route_ID,station_ID,arrival_Time,depart_Time, waiting_Time)"

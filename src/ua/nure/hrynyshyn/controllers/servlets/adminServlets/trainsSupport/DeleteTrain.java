@@ -1,8 +1,8 @@
-package ua.nure.hrynyshyn.controllers.servlets.adminServlets.routeSupport;
+package ua.nure.hrynyshyn.controllers.servlets.adminServlets.trainsSupport;
 
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
 import ua.nure.hrynyshyn.core.DBSupport.connectionPool.ConnectionPool;
-import ua.nure.hrynyshyn.core.entities.railway.realEstate.Route;
+import ua.nure.hrynyshyn.core.entities.railway.rollingStock.Train;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,21 +15,24 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 16.08.2016.
+ * Created by GrynyshynRoman on 18.08.2016.
  */
-@WebServlet(name = "deleteRoute", urlPatterns = "/deleteRoute")
-public class deleteRoute extends HttpServlet {
+@WebServlet(name = "deleteTrain", urlPatterns = "/deleteTrain")
+public class DeleteTrain extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Route route = new Route();
-        route.setRoute_ID(Integer.parseInt(request.getParameter("routeID")));
+        request.setCharacterEncoding("UTF-8");
+
+        Train train = new Train();
+        train.setTrain_ID(Integer.parseInt(request.getParameter("train_ID")));
+
         ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("DBConnection");
         Connection connection = cp.getConnection();
-        DAOFactory.getRouteDAO(connection).delete(route);
-        HttpSession session = request.getSession();
-        session.setAttribute("routes", DAOFactory.getRouteDAO(connection).getAll());
+        DAOFactory.getCarriageDAO(connection).deleteByTrainID(train.getTrain_ID());
+        DAOFactory.getTrainDAO(connection).delete(train);
+
         cp.freeConnection(connection);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("routesEdit.jsp");
-        dispatcher.forward(request, response);
+
+        response.sendRedirect("trainsEdit.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

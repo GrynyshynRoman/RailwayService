@@ -14,12 +14,13 @@ import java.io.IOException;
  * Created by GrynyshynRoman on 19.08.2016.
  */
 @WebServlet(name = "logout",urlPatterns = "/logout")
-public class logout extends HttpServlet {
+public class Logout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session=request.getSession();
         User user=(User)session.getAttribute("user");
         user.setLogged(false);
         session.removeAttribute("user");
+        session.removeAttribute("role");
         response.sendRedirect("index.jsp");
 
     }

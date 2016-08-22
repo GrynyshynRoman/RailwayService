@@ -7,11 +7,11 @@ import java.util.TimeZone;
 /**
  * Created by GrynyshynRoman on 16.08.2016.
  */
-public final class dateTimeSupport {
+public final class DateTimeSupport {
     public static long parseDate(String date){
         long result=0;
         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+2"));
         try{
             result=dateFormat.parse(date).getTime();
         }catch (ParseException e){

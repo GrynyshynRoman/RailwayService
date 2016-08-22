@@ -18,7 +18,7 @@ import java.sql.Connection;
  * Created by GrynyshynRoman on 18.08.2016.
  */
 @WebServlet(name = "editTrain",urlPatterns = "/editTrain")
-public class editTrain extends HttpServlet {
+public class EditTrain extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
@@ -30,12 +30,9 @@ public class editTrain extends HttpServlet {
         Connection connection=cp.getConnection();
         DAOFactory.getTrainDAO(connection).update(train);
 
-        HttpSession session = request.getSession();
-        session.setAttribute("trains", DAOFactory.getTrainDAO(connection).getAll());
-
         cp.freeConnection(connection);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("trainsEdit.jsp");
-        dispatcher.forward(request, response);
+
+        response.sendRedirect("trainsEdit.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

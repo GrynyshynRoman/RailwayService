@@ -1,7 +1,9 @@
-package ua.nure.hrynyshyn.controllers.servlets.adminServlets.supportServlets;
+package ua.nure.hrynyshyn.controllers.servlets.adminServlets.trainsSupport;
 
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
 import ua.nure.hrynyshyn.core.DBSupport.connectionPool.ConnectionPool;
+import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
+import ua.nure.hrynyshyn.core.entities.railway.rollingStock.Train;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,23 +18,24 @@ import java.sql.Connection;
 /**
  * Created by GrynyshynRoman on 18.08.2016.
  */
-@WebServlet(name = "trainsEdit", urlPatterns = "/trainsEdit")
-public class trainsEdit extends HttpServlet {
+@WebServlet(name = "addTrain", urlPatterns = "/addTrain")
+public class AddTrain extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
+        Train train=new Train();
+        train.setRoute_ID(Integer.parseInt(request.getParameter("route_ID")));
+
+        ConnectionPool cp=(ConnectionPool)getServletContext().getAttribute("DBConnection");
+        Connection connection=cp.getConnection();
+        DAOFactory.getTrainDAO(connection).insert(train);
+        cp.freeConnection(connection);
+
+        response.sendRedirect("trainsEdit.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ConnectionPool cp=(ConnectionPool)getServletContext().getAttribute("DBConnection");
-        Connection connection=cp.getConnection();
 
-
-        HttpSession session = request.getSession();
-        session.setAttribute("trains", DAOFactory.getTrainDAO(connection).getAll());
-        session.setAttribute("carriages", DAOFactory.getCarriageDAO(connection).getAll());
-
-        cp.freeConnection(connection);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("trainsEdit.jsp");
-        dispatcher.forward(request, response);
     }
 }

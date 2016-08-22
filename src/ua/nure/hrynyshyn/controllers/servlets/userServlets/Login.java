@@ -20,7 +20,7 @@ import java.sql.Connection;
  * Created by GrynyshynRoman on 16.08.2016.
  */
 @WebServlet(name = "login", urlPatterns = "/login")
-public class login extends HttpServlet {
+public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");

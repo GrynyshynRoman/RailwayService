@@ -11,6 +11,7 @@ import java.util.List;
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class RouteDAO extends AbstractDAO<Route> {
+
     @Override
     protected String getInsertQuery() {
         return "INSERT INTO RAILWAY.ROUTES (departStation_ID, departTime, destStation_ID, destTime) VALUES(?,?,?,?)";

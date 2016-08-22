@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="test.css">
 </head>
 <body>
-<jsp:include page="adminPanel.html"></jsp:include>
+<%@include file="adminPanel.html"%>
 <br>
 <br>
 <table align="center" width="80%">
@@ -42,7 +42,7 @@
                     <label>City:</label> <input type="text" name="city">
                     <label>State:</label> <input type="text" name="state">
                     <label>Country:</label><input type="text" name="country">
-                    <label></label><input type="submit" value="Add">
+                    <label></label><input type="submit" value="Edit">
                 </div>
                 <br>
 
@@ -56,6 +56,13 @@
                     <label></label><input type="submit" value="Delete">
                 </div>
             </form>
+            <br>
+            <div>
+                <c:if test="${isDeleted ne true && isDeleted ne null}">
+                    <strong >Cannot delete station!</strong>
+                </c:if>
+            </div>
+
         </td>
     </tr>
 </table>
@@ -82,6 +89,5 @@
         </tr>
     </c:forEach>
 </table>
-<jsp:include page="toAdminHome.html"></jsp:include>
 </body>
 </html>

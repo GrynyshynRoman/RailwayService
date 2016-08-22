@@ -26,9 +26,39 @@
         <param-value>50</param-value>
     </context-param>
 
+
+
+
+    <!-- Filters and listeners-->
     <listener>
         <listener-class>ua.nure.hrynyshyn.controllers.listeners.appInitListener</listener-class>
     </listener>
+
+
+    <filter>
+        <filter-name>stationsUpdate</filter-name>
+        <filter-class>ua.nure.hrynyshyn.controllers.filters.StationsListUpdate</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>stationsUpdate</filter-name>
+        <url-pattern>/stationsEdit.jsp</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>routesEditUpdate</filter-name>
+        <filter-class>ua.nure.hrynyshyn.controllers.filters.RoutesEditPageUpdate</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>routesEditUpdate</filter-name>
+        <url-pattern>/routesEdit.jsp</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>trainsEditUpdate</filter-name>
+        <filter-class>ua.nure.hrynyshyn.controllers.filters.TrainsEditPageUpdate</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>trainsEditUpdate</filter-name>
+        <url-pattern>/trainsEdit.jsp</url-pattern>
+    </filter-mapping>
 
 
 
