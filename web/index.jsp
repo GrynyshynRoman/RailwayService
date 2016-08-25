@@ -22,8 +22,8 @@
             <td>
                 Search:
                 <form action="search" method="get">
-                    From: <input type="text" name="from">
-                    To: <input type="text" name="to"><br>
+                    From: <input type="text" name="departStation">
+                    To: <input type="text" name="destStation"><br>
                     Date: <input type="date" name="date">
                     <input type="submit">
                 </form>

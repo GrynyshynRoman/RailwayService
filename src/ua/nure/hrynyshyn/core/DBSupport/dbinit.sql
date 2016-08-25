@@ -74,7 +74,10 @@ SELECT *
 FROM railway.users;
 
 DELETE FROM way_stations
-WHERE route_ID = ?
+WHERE route_ID = ?;
+
+SELECT *
+FROM stations;
 
 
 SELECT *
@@ -93,9 +96,47 @@ SELECT *
 FROM users;
 DROP TABLE users;
 
-SELECT routes.route_ID,
+SELECT *
 FROM routes
-   JOIN way_stations ON routes.route_ID = way_stations.route_ID
-WHERE ((departStation_ID = ? AND departTime = ?) OR (station_ID=? AND departTime=? ))AND (destStation_ID = ? OR station_ID = ?);
+  JOIN way_stations ON routes.route_ID = way_stations.route_ID;
+SELECT *
+FROM stations;
+# WHERE ((departStation_ID = ? AND departTime = ?) OR (station_ID=? AND departTime=? ))AND (destStation_ID = ? OR station_ID = ?);
 
-SELECT * FROM routes JOIN way_stations ON routes.route_ID=way_stations.route_ID;
+SELECT routes.route_ID
+FROM routes
+  JOIN way_stations ON routes.route_ID = way_stations.route_ID
+WHERE (routes.departStation_ID = 30 OR way_stations.station_ID = 30) AND
+      (routes.destStation_ID = 33 OR way_stations.station_ID = 33) AND
+      ((DATE(routes.departTime) BETWEEN 20160827 AND (20160827 + hour(23) + minute(59))) OR
+       (DATE((way_stations.arrival_Time) BETWEEN 20160827 AND (20160827 + hour(23) + minute(59)))));
+
+
+SELECT routes.route_ID
+FROM routes
+  JOIN way_stations ON routes.route_ID = way_stations.route_ID;
+
+SELECT *
+FROM trains
+  JOIN carriages ON trains.train_ID = carriages.train_ID
+WHERE trains.train_ID = ? AND carriages.reservedSeats < carriages.totalSeats;
+
+SELECT *
+FROM trains
+  JOIN carriages ON trains.train_ID = carriages.train_ID
+  JOIN routes ON trains.route_ID = routes.route_ID
+  JOIN way_stations ON routes.route_ID = way_stations.route_ID
+  JOIN stations ON way_stations.station_ID = stations.station_ID;
+
+SELECT routes.departTime
+FROM routes  
+WHERE routes.route_ID = 15 AND departStation_ID = 30;
+
+SELECT depart_Time
+FROM way_stations
+WHERE route_ID = 15 AND station_ID = 32;
+
+SELECT *
+FROM carriages
+WHERE train_ID = ? AND reservedSeats < totalSeats;
+

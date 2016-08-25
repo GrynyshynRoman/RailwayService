@@ -4,26 +4,66 @@ import ua.nure.hrynyshyn.core.DBSupport.DAOs.AbstractDAO;
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.WayStation;
 
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
+
+import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseDateTime;
 
 /**
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class WayStationDAO extends AbstractDAO<WayStation> {
-    public boolean deleteByRouteID(int id){
-        String sql="DELETE FROM way_stations WHERE route_ID=?";
+    public long getDestTime(int route_ID, int station_ID) {
+        long date=0;
+        String sql = "SELECT arrival_Time\n" +
+                "FROM way_stations WHERE route_ID=? AND station_ID=?;";
         try(PreparedStatement statement=connection.prepareStatement(sql)){
-            statement.setInt(1,id);
-            statement.execute();
+            statement.setInt(1,route_ID);
+            statement.setInt(2,station_ID);
+            ResultSet rs=statement.executeQuery();
+            rs.next();
+            date=parseDateTime(rs.getString(1));
         }catch (SQLException e){
+            //// TODO: 25.08.2016 logging
+        }
+        return date;
+    }
+    public long getDepartTime(int route_ID, int station_ID) {
+        long date=0;
+        String sql = "SELECT depart_Time\n" +
+                "FROM way_stations WHERE route_ID=? AND station_ID=?;";
+        try(PreparedStatement statement=connection.prepareStatement(sql)){
+            statement.setInt(1,route_ID);
+            statement.setInt(2,station_ID);
+            ResultSet rs=statement.executeQuery();
+            rs.next();
+            date=parseDateTime(rs.getString(1));
+        }catch (SQLException e){
+            //// TODO: 25.08.2016 logging
+        }
+        return date;
+    }
+
+    public boolean deleteByRouteID(int id) {
+        String sql = "DELETE FROM way_stations WHERE route_ID=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            statement.execute();
+        } catch (SQLException e) {
             log.log(Level.INFO, "Can't delete stations", e);
             return false;
         }
         return true;
     }
+
     @Override
     protected String getInsertQuery() {
         return "INSERT INTO RAILWAY.WAY_STATIONS (route_ID,station_ID,arrival_Time,depart_Time, waiting_Time)"
@@ -44,6 +84,7 @@ public class WayStationDAO extends AbstractDAO<WayStation> {
     protected String getDeleteQuery() {
         return "DELETE FROM RAILWAY.WAY_STATIONS WHERE wayStation_ID=?";
     }
+
     @Override
     protected String getGetAllQuery() {
         return "SELECT * FROM RAILWAY.WAY_STATIONS";
@@ -88,7 +129,8 @@ public class WayStationDAO extends AbstractDAO<WayStation> {
     protected void prepareDeleteStatement(PreparedStatement statement, WayStation object) throws SQLException {
         statement.setInt(1, object.getWayStation_ID());
     }
+
     public WayStationDAO(Connection connection) {
-        super.connection=connection;
+        super.connection = connection;
     }
 }

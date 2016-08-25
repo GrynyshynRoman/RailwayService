@@ -11,7 +11,7 @@ public final class DateTimeSupport {
     public static long parseDate(String date){
         long result=0;
         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+2"));
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
         try{
             result=dateFormat.parse(date).getTime();
         }catch (ParseException e){
@@ -31,4 +31,17 @@ public final class DateTimeSupport {
         }
         return result;
     }
+    public static long parseDateTime(String dateTime){
+        long result=0;
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
+        try{
+            result=dateFormat.parse(dateTime).getTime();
+        }catch (ParseException e){
+            System.err.println(e);
+            //TODO
+        }
+        return result;
+    }
+
 }

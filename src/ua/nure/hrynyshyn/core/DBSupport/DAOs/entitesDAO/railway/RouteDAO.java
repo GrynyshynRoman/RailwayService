@@ -3,14 +3,52 @@ package ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.railway;
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.AbstractDAO;
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.Route;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseDate;
+import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseDateTime;
 
 /**
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class RouteDAO extends AbstractDAO<Route> {
+    public long getDestTime(int route_ID, int station_ID) {
+        long date=0;
+        String sql = "SELECT destTime\n" +
+                "FROM routes WHERE route_ID=? AND destStation_ID=?;";
+        try(PreparedStatement statement=connection.prepareStatement(sql)){
+            statement.setInt(1,route_ID);
+            statement.setInt(2,station_ID);
+            ResultSet rs=statement.executeQuery();
+            rs.next();
+            date=parseDateTime(rs.getString(1));
+        }catch (SQLException e){
+            //// TODO: 25.08.2016 logging
+        }
+        return date;
+    }
+    public long getDepartTime(int route_ID, int station_ID) {
+        long date=0;
+        String sql = "SELECT departTime\n" +
+                "FROM routes WHERE route_ID=? AND departStation_ID=?;";
+        try(PreparedStatement statement=connection.prepareStatement(sql)){
+            statement.setInt(1,route_ID);
+            statement.setInt(2,station_ID);
+            ResultSet rs=statement.executeQuery();
+            rs.next();
+            date=parseDateTime(rs.getString(1));
+        }catch (SQLException e){
+            //// TODO: 25.08.2016 logging
+        }
+        return date;
+    }
 
     @Override
     protected String getInsertQuery() {

@@ -15,6 +15,20 @@ import java.util.logging.Level;
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class CarriageDAO extends AbstractDAO<Carriage> {
+    public List<Carriage> getNotFullCarriages(int train_ID){
+        List<Carriage> carriages=null;
+        String sql="SELECT *\n" +
+                "FROM carriages\n" +
+                "WHERE train_ID = ? AND reservedSeats < totalSeats";
+        try(PreparedStatement statement=connection.prepareStatement(sql)){
+            statement.setInt(1,train_ID);
+            ResultSet rs=statement.executeQuery();
+            carriages=parseResultSet(rs);
+        }catch (SQLException e){
+            //// TODO: 25.08.2016 logging
+        }
+        return carriages;
+    }
     public boolean deleteByTrainID(int id){
         String sql="DELETE FROM carriages WHERE train_ID=?";
         try(PreparedStatement statement=connection.prepareStatement(sql)){

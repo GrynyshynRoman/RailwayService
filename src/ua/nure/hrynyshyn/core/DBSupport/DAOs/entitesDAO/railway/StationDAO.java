@@ -8,12 +8,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class StationDAO extends AbstractDAO<Station> {
+    public  Station getByName(String name){
+        String sql="SELECT * FROM stations WHERE name=?";
+        List<Station> stations=null;
+        try(PreparedStatement statement=connection.prepareStatement(sql)){
+            statement.setString(1,name);
+            stations=parseResultSet(statement.executeQuery());
+        }catch (SQLException e){
+            log.log(Level.INFO, "Can't execute", e);
+        }
+        return stations.iterator().next();
+    }
+
 
     @Override
     protected String getInsertQuery() {
