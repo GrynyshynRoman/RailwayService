@@ -37,7 +37,7 @@ public class Login extends HttpServlet {
 
 
         if (user == null) {
-            response.sendRedirect("loginError.html");
+            response.sendRedirect("loginError.jsp");
         } else {
             cp.freeConnection(connection);
 
@@ -48,7 +48,7 @@ public class Login extends HttpServlet {
                 session.setAttribute("role", role);
                 response.sendRedirect("index.jsp");
             } else {
-                response.sendRedirect("loginError.html");
+                response.sendRedirect("loginError.jsp");
             }
         }
 

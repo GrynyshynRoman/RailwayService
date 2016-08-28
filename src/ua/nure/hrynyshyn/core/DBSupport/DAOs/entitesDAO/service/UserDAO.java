@@ -23,23 +23,23 @@ public class UserDAO extends AbstractDAO<User> {
             statement.setString(1, login);
             users = parseResultSet(statement.executeQuery());
         } catch (SQLException e) {
-            log.log(Level.INFO, "Can't find element", e);
+            log.error("Can't find user by login", e);
         }
         if (users.size() != 0) {
             return users.iterator().next();
         } else return null;
     }
 
-    public List<String> getLogins(){
-        String slq="SELECT  login FROM users";
-        List<String> logins=new ArrayList<>();
-        try (PreparedStatement statement=connection.prepareStatement(slq)){
-            ResultSet rs=statement.executeQuery();
-            while (rs.next()){
+    public List<String> getLogins() {
+        String slq = "SELECT  login FROM users";
+        List<String> logins = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(slq)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
                 logins.add(rs.getString(1));
             }
-        }catch (SQLException e){
-            log.log(Level.INFO,"Problems during processing with database", e);
+        } catch (SQLException e) {
+            log.error("Getting all logins failure", e);
         }
         return logins;
     }

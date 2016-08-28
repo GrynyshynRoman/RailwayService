@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="test.css">
 </head>
 <body>
-<%@include file="adminPanel.html"%>
+<%@include file="adminPanel.html" %>
 Routes management:
 <table align="center" width="80%">
     <tr>
@@ -162,9 +162,10 @@ Routes management:
                             <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${deparTime}"/>
                         </td>
                         <td>
-                            <jsp:useBean id="waitTime" class="java.util.Date"/>
-                            <jsp:setProperty name="waitTime" property="time" value="${wayStation.waitingTime}"/>
-                            <fmt:formatDate pattern="HH:mm" value="${waitTime}"/>
+                            <jsp:useBean id="waitingTime" class="ua.nure.hrynyshyn.core.supportClasses.TimeFormatter"/>
+                            <jsp:setProperty name="waitingTime" property="total" value="${wayStation.waitingTime}"/>
+                                ${waitingTime.time}
+
                         </td>
                     </tr>
                 </c:forEach>

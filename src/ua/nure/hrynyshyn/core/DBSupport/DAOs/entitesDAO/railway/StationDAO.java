@@ -8,22 +8,36 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
+
 
 /**
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class StationDAO extends AbstractDAO<Station> {
-    public  Station getByName(String name){
-        String sql="SELECT * FROM stations WHERE name=?";
-        List<Station> stations=null;
-        try(PreparedStatement statement=connection.prepareStatement(sql)){
-            statement.setString(1,name);
-            stations=parseResultSet(statement.executeQuery());
-        }catch (SQLException e){
-            log.log(Level.INFO, "Can't execute", e);
+    public List<String> getAllNames() {
+        String sql = "SELECT name FROM stations";
+        List<String> names = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString(1);
+                names.add(name);
+            }
+        } catch (SQLException e) {
+            log.error("All station names getting failure",e);
+        }
+        return names;
+    }
+
+    public Station getByName(String name) {
+        String sql = "SELECT * FROM stations WHERE name=?";
+        List<Station> stations = null;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, name);
+            stations = parseResultSet(statement.executeQuery());
+        } catch (SQLException e) {
+            log.error("Station name getting failure",e);
         }
         return stations.iterator().next();
     }
@@ -48,6 +62,7 @@ public class StationDAO extends AbstractDAO<Station> {
     protected String getDeleteQuery() {
         return "DELETE FROM RAILWAY.STATIONS WHERE station_ID=?";
     }
+
     @Override
     protected String getGetAllQuery() {
         return "SELECT * FROM RAILWAY.STATIONS";
@@ -55,9 +70,9 @@ public class StationDAO extends AbstractDAO<Station> {
 
     @Override
     protected List<Station> parseResultSet(ResultSet resultSet) throws SQLException {
-        List<Station> stations=new ArrayList<>();
-        while (resultSet.next()){
-            Station station=new Station();
+        List<Station> stations = new ArrayList<>();
+        while (resultSet.next()) {
+            Station station = new Station();
             station.setStation_ID(resultSet.getInt(1));
             station.setName(resultSet.getString(2));
             station.setCity(resultSet.getString(3));
@@ -70,27 +85,27 @@ public class StationDAO extends AbstractDAO<Station> {
 
     @Override
     protected void prepareInsertStatement(PreparedStatement statement, Station object) throws SQLException {
-        statement.setString(1,object.getName());
-        statement.setString(2,object.getCity());
-        statement.setString(3,object.getState());
-        statement.setString(4,object.getCountry());
+        statement.setString(1, object.getName());
+        statement.setString(2, object.getCity());
+        statement.setString(3, object.getState());
+        statement.setString(4, object.getCountry());
     }
 
     @Override
     protected void prepareUpdateStatement(PreparedStatement statement, Station object) throws SQLException {
-        statement.setString(1,object.getName());
-        statement.setString(2,object.getCity());
-        statement.setString(3,object.getState());
-        statement.setString(4,object.getCountry());
-        statement.setInt(5,object.getStation_ID());
+        statement.setString(1, object.getName());
+        statement.setString(2, object.getCity());
+        statement.setString(3, object.getState());
+        statement.setString(4, object.getCountry());
+        statement.setInt(5, object.getStation_ID());
     }
 
     @Override
     protected void prepareDeleteStatement(PreparedStatement statement, Station object) throws SQLException {
-        statement.setInt(1,object.getStation_ID());
+        statement.setInt(1, object.getStation_ID());
     }
 
     public StationDAO(Connection connection) {
-        super.connection=connection;
+        super.connection = connection;
     }
 }

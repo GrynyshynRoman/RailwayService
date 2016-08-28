@@ -21,8 +21,8 @@ public class TimeFormatter {
 
     public void setTotal(long total) {
         this.total = total;
-       long hours= TimeUnit.MILLISECONDS.toHours(total);
-       long minutes=TimeUnit.HOURS.toMinutes(hours)-TimeUnit.MILLISECONDS.toMinutes(total);
-        time= String.format("%02d : %02d", hours,minutes);
+        long hours = TimeUnit.MILLISECONDS.toHours(total);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(total) - TimeUnit.HOURS.toMinutes(hours);
+        time = String.format("%02d : %02d", hours, minutes);
     }
 }

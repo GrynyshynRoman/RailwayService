@@ -23,7 +23,7 @@ public class RoleDAO extends AbstractDAO<Role> {
             statement.setString(1, login);
             roles = parseResultSet(statement.executeQuery());
         } catch (SQLException e) {
-            log.log(Level.INFO, "Can't find element", e);
+            log.error("Can't find role", e);
         }
         if (roles.size() != 0) {
             return roles.iterator().next();

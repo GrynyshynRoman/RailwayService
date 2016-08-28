@@ -13,7 +13,7 @@
     <title>SearchResults</title>
 </head>
 <body>
-<table border="1">
+<table border="1" align="center" width="80%">
     <tr>
         <td>Train number</td>
         <td>Depart station and time</td>
@@ -21,11 +21,11 @@
         <td>Destination station and time</td>
         <td>Carriages</td>
         <td>Price</td>
-        <td>Route info</td>
+        <td>Route routeInfo</td>
     </tr>
     <c:forEach var="result" items="${sessionScope.searchResults}">
         <tr>
-            <td><c:out value="${result.train_ID}"/></td>
+            <td><c:out value="${result.train.train_ID}"/></td>
             <td>
                     ${result.departStation.name}<br>
                 <jsp:useBean id="departTime" class="java.util.Date"/>
@@ -35,7 +35,7 @@
             <td>
                 <jsp:useBean id="wayTime" class="ua.nure.hrynyshyn.core.supportClasses.TimeFormatter"/>
                 <jsp:setProperty name="wayTime" property="total" value="${result.wayTime}"/>
-                ${wayTime.time}
+                    ${wayTime.time}
             </td>
             <td>
                     ${result.destStation.name}<br>
@@ -52,7 +52,7 @@
                     </tr>
                     <c:forEach var="carriage" items="${result.carriages}">
                         <tr>
-                            <td> ${carriage.carriageNumber}</td>
+                            <td>${carriage.carriageNumber}</td>
                             <td>${carriage.type}</td>
                             <td>${carriage.totalSeats-carriage.reservedSeats}</td>
                         </tr>
@@ -60,7 +60,12 @@
                 </table>
             </td>
             <td>${result.price}</td>
-            <td><a href="routeInfo.html">Info</a></td>
+            <td>
+                <form action="routeInfo" method="get">
+                    <input type="text" name="route_ID" value="${result.train.route_ID}" hidden>
+                    <input type="submit" value="Info">
+                </form>
+            </td>
         </tr>
     </c:forEach>
 </table>

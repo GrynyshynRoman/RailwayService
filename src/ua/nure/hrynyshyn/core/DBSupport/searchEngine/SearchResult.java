@@ -2,8 +2,8 @@ package ua.nure.hrynyshyn.core.DBSupport.searchEngine;
 
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
 import ua.nure.hrynyshyn.core.entities.railway.rollingStock.Carriage;
+import ua.nure.hrynyshyn.core.entities.railway.rollingStock.Train;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class SearchResult {
 
-    private int train_ID;
+    private Train train;
     private Station departStation;
     private long departTime;
     private long wayTime;
@@ -19,13 +19,14 @@ public class SearchResult {
     private long destTime;
     List<Carriage> carriages;
     private double price;
+    private RouteInfo routeInfo;
 
-    public int getTrain_ID() {
-        return train_ID;
+    public Train getTrain() {
+        return train;
     }
 
-    public void setTrain_ID(int train_ID) {
-        this.train_ID = train_ID;
+    public void setTrain(Train train) {
+        this.train = train;
     }
 
     public Station getDepartStation() {
@@ -82,5 +83,13 @@ public class SearchResult {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public RouteInfo getRouteInfo() {
+        return routeInfo;
+    }
+
+    public void setRouteInfo(RouteInfo routeInfo) {
+        this.routeInfo = routeInfo;
     }
 }

@@ -1,7 +1,10 @@
 package ua.nure.hrynyshyn.core.DBSupport.searchEngine;
 
 
+
+import org.apache.log4j.Logger;
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
+
 
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
 import ua.nure.hrynyshyn.core.entities.railway.rollingStock.Train;
@@ -19,11 +22,11 @@ import java.util.List;
  * Created by GrynyshynRoman on 22.08.2016.
  */
 public class Search {
+    private static final Logger log = Logger.getLogger(Search.class.getName());
     private Station departStation;
     private Station destStation;
     private Date departDate;
     private Connection connection;
-    private List<SearchResult> searchResults = new ArrayList<>();
 
 
     public List<SearchResult> search() {
@@ -31,7 +34,7 @@ public class Search {
         List<SearchResult> searchResults = new ArrayList<>();
         for (Train train : trains) {
             SearchResult searchResult = new SearchResult();
-            searchResult.setTrain_ID(train.getTrain_ID());
+            searchResult.setTrain(train);
             searchResult.setDepartStation(departStation);
             searchResult.setDestStation(destStation);
             long departTime = determineDepartTime(train.getRoute_ID(), departStation.getStation_ID());
@@ -42,6 +45,7 @@ public class Search {
             searchResult.setDestTime(destTime);
             searchResult.setCarriages(DAOFactory.getCarriageDAO(connection).getNotFullCarriages(train.getTrain_ID()));
             searchResults.add(searchResult);
+
         }
         return searchResults;
     }
@@ -71,9 +75,8 @@ public class Search {
                     t.setRoute_ID(rs.getInt(2));
                     result.add(train);
                 }
-
             } catch (SQLException e) {
-                //// TODO: 23.08.2016 logging
+                log.error("Train search failure",e);
             }
         }
         return result;
@@ -112,7 +115,7 @@ public class Search {
                 }
             }
         } catch (SQLException e) {
-            //// TODO: 23.08.2016
+            log.error("Route search failure",e);
         }
         return routes_IDs;
     }
@@ -123,6 +126,7 @@ public class Search {
         this.departDate = departDate;
         this.connection = connection;
     }
+
 
     private long determineDepartTime(int route_ID, int station_ID) {
         long date = DAOFactory.getRouteDAO(connection).getDepartTime(route_ID, station_ID);

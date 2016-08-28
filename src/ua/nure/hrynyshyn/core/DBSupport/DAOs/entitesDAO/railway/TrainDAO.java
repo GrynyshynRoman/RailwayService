@@ -16,17 +16,18 @@ import java.util.logging.Level;
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class TrainDAO extends AbstractDAO<Train> {
-    public List<Train> getByRouteID(int route_ID){
-        String sql="SELECT * FROM trains WHERE route_ID=?";
-        List<Train> trains=null;
-        try(PreparedStatement statement=connection.prepareStatement(sql)){
-            statement.setInt(1,route_ID);
-            trains=parseResultSet(statement.executeQuery());
-        }catch (SQLException e){
-            log.log(Level.INFO, "Can't execute", e);
+    public List<Train> getByRouteID(int route_ID) {
+        String sql = "SELECT * FROM trains WHERE route_ID=?";
+        List<Train> trains = null;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, route_ID);
+            trains = parseResultSet(statement.executeQuery());
+        } catch (SQLException e) {
+            log.error("Route id getting failure",e);
         }
         return trains;
     }
+
     @Override
     protected String getInsertQuery() {
         return "INSERT INTO RAILWAY.TRAINS (route_ID) VALUES (?)";
@@ -46,6 +47,7 @@ public class TrainDAO extends AbstractDAO<Train> {
     protected String getDeleteQuery() {
         return "DELETE FROM RAILWAY.TRAINS WHERE train_ID=?";
     }
+
     @Override
     protected String getGetAllQuery() {
         return "SELECT * FROM RAILWAY.TRAINS";

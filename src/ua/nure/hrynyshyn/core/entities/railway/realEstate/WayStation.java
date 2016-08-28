@@ -11,7 +11,7 @@ public class WayStation{
     private int station_ID;
     private long arrivalTime;
     private long departTime;
-    private long waitingTime;
+    private int waitingTime;
 
     public int getWayStation_ID() {
         return wayStation_ID;
@@ -53,11 +53,11 @@ public class WayStation{
         this.departTime = departTime;
     }
 
-    public long getWaitingTime() {
+    public int getWaitingTime() {
         return waitingTime;
     }
 
-    public void setWaitingTime(long waitingTime) {
+    public void setWaitingTime(int waitingTime) {
         this.waitingTime = waitingTime;
     }
 }

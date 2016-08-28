@@ -9,14 +9,13 @@
 <html>
 <head>
     <title>Registration</title>
+    <link rel="stylesheet" href="test.css">
 </head>
 <body>
 <h1 align="center">Registration</h1>
 <form action="registration" method="post">
-    <table align="center" width="50%">
-        <tr>
-            <td align="right">
-                Login:
+
+                <label></label>Login:
             </td>
             <td align="left">
                 <input type="text" name="login">

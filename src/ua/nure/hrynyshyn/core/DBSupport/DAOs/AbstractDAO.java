@@ -1,19 +1,21 @@
 package ua.nure.hrynyshyn.core.DBSupport.DAOs;
 
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 
 /**
  * Created by GrynyshynRoman on 18.07.2016.
  */
 public abstract class AbstractDAO<T> implements GenericDAO<T> {
-    protected static Logger log = Logger.getLogger(AbstractDAO.class.getName());
+    protected static final Logger log=Logger.getLogger(AbstractDAO.class.getName());
 
     protected Connection connection;
 
@@ -44,11 +46,10 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
             prepareInsertStatement(statement, object);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.err.println(e);
+            log.error("Can't add new object to DB",e);
             return false;
-        }finally {
-
         }
+        log.info("New record added");
         return true;
     }
 
@@ -60,7 +61,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
             statement.setInt(1, id);
             objects = parseResultSet(statement.executeQuery());
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("Can't read object from DB",e);
         }
         return objects.iterator().next();
     }
@@ -72,9 +73,10 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
             prepareUpdateStatement(statement, object);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.err.println(e);
+            log.error("Can't update DB object",e);
             return false;
         }
+        log.info("Record updated");
         return true;
     }
 
@@ -85,9 +87,10 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
             prepareDeleteStatement(statement, object);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.err.println(e);
+            log.error("Can't delete object from",e);
             return false;
         }
+        log.info("Record deleted");
         return true;
     }
 
@@ -98,8 +101,9 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             objects = parseResultSet(statement.executeQuery());
         } catch (SQLException e) {
-            log.log(Level.SEVERE, "Can't execute query", e);
+            log.error("Can't get all records", e);
         }
+        log.info("All records obtained");
         return objects;
     }
 }

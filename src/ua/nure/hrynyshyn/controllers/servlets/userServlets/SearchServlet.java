@@ -33,15 +33,26 @@ public class SearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("DBConnection");
         Connection connection = cp.getConnection();
-        Station departStation = DAOFactory.getStationDAO(connection).getByName(request.getParameter("departStation"));
-        Station destStation = DAOFactory.getStationDAO(connection).getByName(request.getParameter("destStation"));
-        Date date = new Date(parseDate(request.getParameter("date")));
-        Search search = new Search(departStation, destStation, date, connection);
-        List<SearchResult> results = search.search();
-        HttpSession session=request.getSession();
-        cp.freeConnection(connection);
-        session.setAttribute("searchResults",results);
-        response.sendRedirect("searchResults.jsp");
+        String departStationName = request.getParameter("departStation");
+        String destStationName = request.getParameter("destStation");
+        List<String> stationNames = DAOFactory.getStationDAO(connection).getAllNames();
+        if (stationNames.contains(departStationName) && stationNames.contains(destStationName)) {
+            Station departStation = DAOFactory.getStationDAO(connection).getByName(departStationName);
+            Station destStation = DAOFactory.getStationDAO(connection).getByName(destStationName);
+            Date date = new Date(parseDate(request.getParameter("date")));
+            Search search = new Search(departStation, destStation, date, connection);
+            List<SearchResult> results = search.search();
+            if (results.size() != 0) {
+                HttpSession session = request.getSession();
+                cp.freeConnection(connection);
+                session.setAttribute("searchResults", results);
+                response.sendRedirect("searchResults.jsp");
+            }else {
+                response.sendRedirect("searchError.html");
+            }
+        } else {
+            response.sendRedirect("searchError.html");
+        }
 
     }
 }

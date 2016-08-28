@@ -25,11 +25,12 @@ CREATE TABLE WAY_STATIONS (
   station_ID    INT NOT NULL,
   arrival_Time  DATETIME,
   depart_Time   DATETIME,
-  waiting_Time  TIME,
+  waiting_Time  INT,
   PRIMARY KEY (wayStation_ID),
   FOREIGN KEY (route_ID) REFERENCES routes (route_ID),
   FOREIGN KEY (station_ID) REFERENCES stations (station_ID)
 );
+drop TABLE way_stations;
 
 CREATE TABLE TRAINS (
   train_ID INT NOT NULL AUTO_INCREMENT,
@@ -65,6 +66,10 @@ CREATE TABLE ROLES (
   PRIMARY KEY (role_ID),
   FOREIGN KEY (login) REFERENCES users (login)
 );
+
+
+# -------------------------------------------------Useful queries-----------------------------------------------------
+
 
 UPDATE roles
 SET role = 'admin'
@@ -140,3 +145,5 @@ SELECT *
 FROM carriages
 WHERE train_ID = ? AND reservedSeats < totalSeats;
 
+SELECT *
+FROM way_stations WHERE route_ID=15;

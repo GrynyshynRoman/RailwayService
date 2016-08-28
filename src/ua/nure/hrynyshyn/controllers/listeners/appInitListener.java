@@ -2,6 +2,7 @@ package ua.nure.hrynyshyn.controllers.listeners; /**
  * Created by GrynyshynRoman on 17.08.2016.
  */
 
+import org.apache.log4j.LogManager;
 import ua.nure.hrynyshyn.core.DBSupport.connectionPool.ConnectionPool;
 
 import javax.servlet.ServletContext;
@@ -32,6 +33,8 @@ public class appInitListener implements ServletContextListener {
         int maxConn = Integer.parseInt(sc.getInitParameter("Max_Conn"));
         ConnectionPool connectionPool = ConnectionPool.getInstance(driver, URL, user, password, maxConn);
         sc.setAttribute("DBConnection", connectionPool);
+
+        sc.setInitParameter("language", "en");
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
@@ -41,6 +44,8 @@ public class appInitListener implements ServletContextListener {
       */
         ConnectionPool connectionPool = (ConnectionPool) sce.getServletContext().getAttribute("DBConnection");
         connectionPool.release();
+
+        LogManager.shutdown();
     }
 
 }

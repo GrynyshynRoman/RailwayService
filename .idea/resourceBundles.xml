@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ResourceBundleManager">
+    <file url="file://$PROJECT_DIR$/src/ua/nure/hrynyshyn/Resources/index.properties" />
+    <file url="file://$PROJECT_DIR$/src/ua/nure/hrynyshyn/Resources/index_us.properties" />
+    <custom-resource-bundle>
+      <file value="file://$PROJECT_DIR$/src/ua/nure/hrynyshyn/Resources/index.properties" />
+      <file value="file://$PROJECT_DIR$/src/ua/nure/hrynyshyn/Resources/index_us.properties" />
+      <base-name>index</base-name>
+    </custom-resource-bundle>
+  </component>
+</project>

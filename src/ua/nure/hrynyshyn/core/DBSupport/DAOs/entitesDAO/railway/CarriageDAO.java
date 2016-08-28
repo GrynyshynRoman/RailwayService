@@ -15,35 +15,38 @@ import java.util.logging.Level;
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class CarriageDAO extends AbstractDAO<Carriage> {
-    public List<Carriage> getNotFullCarriages(int train_ID){
-        List<Carriage> carriages=null;
-        String sql="SELECT *\n" +
+    public List<Carriage> getNotFullCarriages(int train_ID) {
+        List<Carriage> carriages = null;
+        String sql = "SELECT *\n" +
                 "FROM carriages\n" +
                 "WHERE train_ID = ? AND reservedSeats < totalSeats";
-        try(PreparedStatement statement=connection.prepareStatement(sql)){
-            statement.setInt(1,train_ID);
-            ResultSet rs=statement.executeQuery();
-            carriages=parseResultSet(rs);
-        }catch (SQLException e){
-            //// TODO: 25.08.2016 logging
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, train_ID);
+            ResultSet rs = statement.executeQuery();
+            carriages = parseResultSet(rs);
+        } catch (SQLException e) {
+            log.error("Can't get not full carriages", e);
         }
+
         return carriages;
     }
-    public boolean deleteByTrainID(int id){
-        String sql="DELETE FROM carriages WHERE train_ID=?";
-        try(PreparedStatement statement=connection.prepareStatement(sql)){
-            statement.setInt(1,id);
+
+    public boolean deleteByTrainID(int id) {
+        String sql = "DELETE FROM carriages WHERE train_ID=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
             statement.execute();
-        }catch (SQLException e){
-            log.log(Level.INFO, "Can't delete carriages", e);
+        } catch (SQLException e) {
+            log.info("Can't delete carriages", e);
             return false;
         }
         return true;
     }
+
     @Override
     protected String getInsertQuery() {
         return "INSERT INTO RAILWAY.CARRIAGES (train_ID, carriageNumber, type, totalSeats, reservedSeats)"
-                +"VALUES(?,?,?,?,?)";
+                + "VALUES(?,?,?,?,?)";
     }
 
     @Override
@@ -68,9 +71,9 @@ public class CarriageDAO extends AbstractDAO<Carriage> {
 
     @Override
     protected List<Carriage> parseResultSet(ResultSet resultSet) throws SQLException {
-        List<Carriage> carriages=new ArrayList<>();
-        while (resultSet.next()){
-            Carriage carriage=new Carriage();
+        List<Carriage> carriages = new ArrayList<>();
+        while (resultSet.next()) {
+            Carriage carriage = new Carriage();
             carriage.setCarriage_ID(resultSet.getInt(1));
             carriage.setTrain_ID(resultSet.getInt(2));
             carriage.setCarriageNumber(resultSet.getInt(3));
@@ -84,32 +87,29 @@ public class CarriageDAO extends AbstractDAO<Carriage> {
 
     @Override
     protected void prepareInsertStatement(PreparedStatement statement, Carriage object) throws SQLException {
-        statement.setInt(1,object.getTrain_ID());
-        statement.setInt(2,object.getCarriageNumber());
-        statement.setString(3,object.getType());
-        statement.setInt(4,object.getTotalSeats());
-        statement.setInt(5,object.getReservedSeats());
+        statement.setInt(1, object.getTrain_ID());
+        statement.setInt(2, object.getCarriageNumber());
+        statement.setString(3, object.getType());
+        statement.setInt(4, object.getTotalSeats());
+        statement.setInt(5, object.getReservedSeats());
     }
 
     @Override
     protected void prepareUpdateStatement(PreparedStatement statement, Carriage object) throws SQLException {
-        statement.setInt(1,object.getTrain_ID());
-        statement.setInt(2,object.getCarriageNumber());
-        statement.setString(3,object.getType());
-        statement.setInt(4,object.getTotalSeats());
-        statement.setInt(5,object.getReservedSeats());
-        statement.setInt(6,object.getCarriage_ID());
+        statement.setInt(1, object.getTrain_ID());
+        statement.setInt(2, object.getCarriageNumber());
+        statement.setString(3, object.getType());
+        statement.setInt(4, object.getTotalSeats());
+        statement.setInt(5, object.getReservedSeats());
+        statement.setInt(6, object.getCarriage_ID());
     }
 
     @Override
     protected void prepareDeleteStatement(PreparedStatement statement, Carriage object) throws SQLException {
-        statement.setInt(1,object.getCarriage_ID());
+        statement.setInt(1, object.getCarriage_ID());
     }
 
-
-
-
     public CarriageDAO(Connection connection) {
-        super.connection=connection;
+        super.connection = connection;
     }
 }

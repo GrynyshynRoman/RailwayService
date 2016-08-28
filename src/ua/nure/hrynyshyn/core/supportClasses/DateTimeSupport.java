@@ -1,5 +1,7 @@
 package ua.nure.hrynyshyn.core.supportClasses;
 
+import org.apache.log4j.Logger;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
@@ -8,38 +10,40 @@ import java.util.TimeZone;
  * Created by GrynyshynRoman on 16.08.2016.
  */
 public final class DateTimeSupport {
-    public static long parseDate(String date){
-        long result=0;
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+    private static final Logger log=Logger.getLogger(DateTimeSupport.class.getName());
+    public static long parseDate(String date) {
+        long result = 0;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
-        try{
-            result=dateFormat.parse(date).getTime();
-        }catch (ParseException e){
-            System.err.println(e);
-            //TODO
+        try {
+            result = dateFormat.parse(date).getTime();
+        } catch (ParseException e) {
+            log.error("String parsing failure",e);
         }
         return result;
     }
-    public static long parseTime(String time){
-        long result=0;
-        SimpleDateFormat dateFormat=new SimpleDateFormat("H:mm");
-        try{
-            result=dateFormat.parse(time).getTime();
-        }catch (ParseException e){
-            System.err.println(e);
-            //TODO
+
+    public static int parseTime(String time) {
+        String hours = time.split(":")[0];
+        String minutes = time.split(":")[1];
+        try {
+            return (Integer.parseInt(hours) * 60 + Integer.parseInt(minutes))*60*1000;
+        }catch (NumberFormatException e){
+            log.error("String parsing failure",e);
         }
-        return result;
+        return 0;
+
+
     }
-    public static long parseDateTime(String dateTime){
-        long result=0;
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+    public static long parseDateTime(String dateTime) {
+        long result = 0;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+3"));
-        try{
-            result=dateFormat.parse(dateTime).getTime();
-        }catch (ParseException e){
-            System.err.println(e);
-            //TODO
+        try {
+            result = dateFormat.parse(dateTime).getTime();
+        } catch (ParseException e) {
+            log.error("String parsing failure",e);
         }
         return result;
     }
