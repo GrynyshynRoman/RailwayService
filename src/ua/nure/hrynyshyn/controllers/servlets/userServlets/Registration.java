@@ -37,7 +37,7 @@ public class Registration extends HttpServlet {
         role.setRole("user");
 
         if (!confirmPassword.equals(user.getPassword())) {
-            response.sendRedirect("registrationError.html");
+            response.sendRedirect("registrationError.jsp");
         } else {
             ConnectionPool cp = (ConnectionPool) request.getServletContext().getAttribute("DBConnection");
             Connection connection = cp.getConnection();
@@ -56,7 +56,7 @@ public class Registration extends HttpServlet {
 
                 response.sendRedirect("index.jsp");
             } else {
-                response.sendRedirect("registrationError.html");
+                response.sendRedirect("registrationError.jsp");
             }
 
         }

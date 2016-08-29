@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: GrynyshynRoman
@@ -7,7 +5,11 @@
   Time: 14:11
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="ua.nure.hrynyshyn.resources.pageContent"/>
 <html>
 <head>
     <title>SearchResults</title>
@@ -15,13 +17,16 @@
 <body>
 <table border="1" align="center" width="80%">
     <tr>
-        <td>Train number</td>
-        <td>Depart station and time</td>
-        <td>Time in travel</td>
-        <td>Destination station and time</td>
-        <td>Carriages</td>
-        <td>Price</td>
-        <td>Route routeInfo</td>
+        <td><fmt:message key="search.trainNumber"/></td>
+        <td><fmt:message key="search.deptStationTime"/></td>
+        <td><fmt:message key="search.travelTime"/></td>
+        <td><fmt:message key="search.destStationTime"/></td>
+        <td><fmt:message key="search.carriages"/></td>
+        <td><fmt:message key="search.price"/></td>
+        <td><fmt:message key="search.routeInfo"/></td>
+        <c:if test="${user.logged}">
+            <td></td>
+        </c:if>
     </tr>
     <c:forEach var="result" items="${sessionScope.searchResults}">
         <tr>
@@ -46,9 +51,9 @@
             <td>
                 <table border="1">
                     <tr>
-                        <td>Carriage number</td>
-                        <td>Type</td>
-                        <td>Free places</td>
+                        <td><fmt:message key="search.carriageNumber"/></td>
+                        <td><fmt:message key="search.carriageType"/></td>
+                        <td><fmt:message key="search.freePlaces"/></td>
                     </tr>
                     <c:forEach var="carriage" items="${result.carriages}">
                         <tr>
@@ -63,9 +68,17 @@
             <td>
                 <form action="routeInfo" method="get">
                     <input type="text" name="route_ID" value="${result.train.route_ID}" hidden>
-                    <input type="submit" value="Info">
+                    <input type="submit" value="<fmt:message key="search.info"/> ">
                 </form>
             </td>
+            <c:if test="${user.logged}">
+                <td>
+                    <form action="/buyTicket" method="post">
+                        <input type="text" name="trainNumber" value="${result.result_ID}" hidden>
+                        <input type="submit" value="<fmt:message key="ticket.buy"/> "/>
+                    </form>
+                </td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>

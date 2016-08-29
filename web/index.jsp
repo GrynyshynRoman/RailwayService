@@ -19,7 +19,7 @@
 <%@include file="languagePanel.html" %>
 <h1 align=center> <fmt:message key="main.title"/> </h1>
 <c:if test="${sessionScope.role.role eq 'admin'}">
-    <%@include file="adminPanel.html" %>
+    <%@include file="adminPanel.jsp" %>
 </c:if>
 <div align=center>
     <table border="1">

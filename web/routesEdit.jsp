@@ -5,116 +5,117 @@
   Time: 23:29
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="ua.nure.hrynyshyn.resources.pageContent"/>
 <html>
 <head>
     <title>Routes edit</title>
     <link rel="stylesheet" href="test.css">
 </head>
 <body>
-<%@include file="adminPanel.html" %>
-Routes management:
-<table align="center" width="80%">
+<%@include file="languagePanel.html"%>
+<%@include file="adminPanel.jsp" %>
+<table align="center" width="90%" border="1">
     <tr>
         <td>
-            Create route:<br>
+            <fmt:message key="route.createRoute"/> :<br>
             <form action="createRoute" method="post">
                 <div>
-                    <label>Department station id:</label><input type="text" name="deptStationID">
-                    <label>Department time:</label><input type="date" name="deptDate"> <input type="time"
-                                                                                              name="deptTime">
-                    <label>Destination station id:</label><input type="text" name="destStationID">
-                    <label>Destination time:</label><input type="date" name="destDate"><input type="time"
-                                                                                              name="destTime">
-                    <label></label><input type="submit" value="Create">
+                    <label><fmt:message key="route.depStatID"/>:</label><input type="text" name="deptStationID"><br>
+                    <label><fmt:message key="route.deptTime"/>:</label><input type="date" name="deptDate"> <input type="time"
+                                                                                              name="deptTime"><br>
+                    <label><fmt:message key="route.destStatID"/>:</label><input type="text" name="destStationID"><br>
+                    <label><fmt:message key="route.destTime"/>:</label><input type="date" name="destDate"><input type="time"
+                                                                                              name="destTime"><br>
+                    <label></label><input type="submit" value="<fmt:message key="route.create"/>">
                 </div>
             </form>
         </td>
         <td>
-            Edit route:<br>
+            <fmt:message key="route.editRoute"/> :<br>
             <form action="editRoute" method="post">
                 <div>
-                    <label>Route id:</label><input type="text" name="routeID">
-                    <label>Department station id:</label><input type="text" name="deptStationID">
-                    <label>Department time:</label><input type="date" name="deptDate"> <input type="time"
-                                                                                              name="deptTime">
-                    <label> Destination station id:</label><input type="text" name="destStationID">
-                    <label>Destination time:</label><input type="date" name="destDate"><input type="time"
-                                                                                              name="destTime">
-                    <label></label><input type="submit" value="Edit">
+                    <label><fmt:message key="route.routeID"/> :</label><input type="text" name="routeID"><br>
+                    <label><fmt:message key="route.depStatID"/>:</label><input type="text" name="deptStationID"><br>
+                    <label><fmt:message key="route.deptTime"/>:</label><input type="date" name="deptDate"> <input type="time"
+                                                                                                                  name="deptTime"><br>
+                    <label><fmt:message key="route.destStatID"/>:</label><input type="text" name="destStationID"><br>
+                    <label><fmt:message key="route.destTime"/>:</label><input type="date" name="destDate"><input type="time"
+                                                                                                                 name="destTime"><br>
+                    <label></label><input type="submit" value="<fmt:message key="admin.edit"/> ">
                 </div>
             </form>
         </td>
         <td>
-            Delete route:
+            <fmt:message key="route.deleteRoute"/> :
             <form action="deleteRoute" method="post">
                 <div>
-                    <label>Route id:</label><input type="text" name="routeID">
-                    <label></label><input type="submit" value="Delete"></div>
-
+                    <label><fmt:message key="route.routeID"/>:</label><input type="text" name="routeID">
+                    <label></label><input type="submit" value="<fmt:message key="admin.delete"/>"></div>
             </form>
         </td>
     </tr>
 </table>
 <br>
 <br>
-<table align="center" width="80%">
+<table align="center" width="90%" border="1">
     <tr>
         <td>
-            Add way station:<br>
+            <fmt:message key="ws.addWS"/> :<br>
             <form action="addWayStation" method="post">
                 <div>
-                    <label>Route ID:</label> <input type="text" name="routeID">
-                    <label>Station ID:</label> <input type="text" name="stationID">
-                    <label>Arrival time:</label> <input type="date" name="arrivDate"> <input type="time"
-                                                                                             name="arrivTime">
-                    <label>Department time:</label> <input type="date" name="deptDate"> <input type="time"
-                                                                                               name="deptTime">
-                    <label>Waiting time:</label> <input type="time" name="waitingTime">
-                    <label></label><input type="submit" value="Add">
+                    <label><fmt:message key="ws.routeid"/> :</label> <input type="text" name="routeID"><br>
+                    <label><fmt:message key="ws.stationid"/>:</label> <input type="text" name="stationID"><br>
+                    <label><fmt:message key="ws.arrivalTime"/>:</label> <input type="date" name="arrivDate"> <input type="time"
+                                                                                             name="arrivTime"><br>
+                    <label><fmt:message key="ws.depTime"/>:</label> <input type="date" name="deptDate"> <input type="time"
+                                                                                               name="deptTime"><br>
+                    <label><fmt:message key="ws.waitTime"/>:</label> <input type="time" name="waitingTime"><br>
+                    <label></label><input type="submit" value="<fmt:message key="admin.add"/>">
                 </div>
             </form>
         </td>
         <td>
-            Edit way station: <br>
+            <fmt:message key="ws.editWS"/>: <br>
             <form action="editWayStation" method="post">
                 <div>
-                    <label>Way station id:</label> <input type="text" name="wayStationID">
-                    <label>Route ID:</label> <input type="text" name="routeID">
-                    <label>Station ID: </label><input type="text" name="stationID">
-                    <label>Arrival time:</label> <input type="date" name="arrivDate"> <input type="time"
-                                                                                             name="arrivTime">
-                    <label>Department time:</label> <input type="date" name="deptDate"> <input type="time"
-                                                                                               name="deptTime">
-                    <label>Waiting time: </label><input type="time" name="waitingTime">
-                    <label></label><input type="submit" value="Edit">
+                    <label><fmt:message key="ws.wsID"/> :</label> <input type="text" name="wayStationID"><br>
+                    <label><fmt:message key="ws.routeid"/> :</label> <input type="text" name="routeID"><br>
+                    <label><fmt:message key="ws.stationid"/>:</label> <input type="text" name="stationID"><br>
+                    <label><fmt:message key="ws.arrivalTime"/>:</label> <input type="date" name="arrivDate"> <input type="time"
+                                                                                                                    name="arrivTime"><br>
+                    <label><fmt:message key="ws.depTime"/>:</label> <input type="date" name="deptDate"> <input type="time"
+                                                                                                               name="deptTime"><br>
+                    <label><fmt:message key="ws.waitTime"/>:</label> <input type="time" name="waitingTime"><br>
+                    <label></label><input type="submit" value="<fmt:message key="admin.edit"/>">
                 </div>
             </form>
         </td>
         <td>
-            Delete way station: <br>
+            <fmt:message key="ws.deleteWS"/>: <br>
             <form action="deleteWayStation" method="post">
                 <div>
-                    <label>Way station id:</label> <input type="text" name="wayStationID"><br>
-                    <label></label><input type="submit" value="Delete">
+                    <label><fmt:message key="ws.wsID"/>:</label> <input type="text" name="wayStationID"><br>
+                    <label></label><input type="submit" value="<fmt:message key="admin.delete"/>">
                 </div>
             </form>
         </td>
     </tr>
 </table>
-<table align="center" width="80%">
+<table align="center" width="90%" >
     <tr>
         <td>
-            Routes:
+            <fmt:message key="route.routes"/>:
             <table border="1">
                 <tr>
-                    <td>Route id</td>
-                    <td>Department station id</td>
-                    <td>Department time</td>
-                    <td>Destination station id</td>
-                    <td>Destination time</td>
+                    <td><fmt:message key="route.routeID"/></td>
+                    <td><fmt:message key="route.depStatID"/></td>
+                    <td><fmt:message key="route.deptTime"/></td>
+                    <td><fmt:message key="route.destStatID"/></td>
+                    <td><fmt:message key="route.destTime"/></td>
                 </tr>
                 <c:forEach var="route" items="${routes}">
                     <tr>
@@ -136,15 +137,15 @@ Routes management:
             </table>
         </td>
         <td>
-            WayStation:
+            <fmt:message key="ws.wayStations"/>:
             <table border="1">
                 <tr>
-                    <td>Way station id</td>
-                    <td>Route id</td>
-                    <td>Station id</td>
-                    <td>Arrival time</td>
-                    <td>Depart time id</td>
-                    <td>Waiting time</td>
+                    <td><fmt:message key="ws.wsID"/></td>
+                    <td><fmt:message key="route.routeID"/></td>
+                    <td><fmt:message key="ws.stationid"/></td>
+                    <td><fmt:message key="ws.arrivalTime"/></td>
+                    <td><fmt:message key="routeInfo.departTime"/></td>
+                    <td><fmt:message key="ws.waitTime"/></td>
                 </tr>
                 <c:forEach var="wayStation" items="${wayStations}">
                     <tr>
@@ -165,7 +166,6 @@ Routes management:
                             <jsp:useBean id="waitingTime" class="ua.nure.hrynyshyn.core.supportClasses.TimeFormatter"/>
                             <jsp:setProperty name="waitingTime" property="total" value="${wayStation.waitingTime}"/>
                                 ${waitingTime.time}
-
                         </td>
                     </tr>
                 </c:forEach>

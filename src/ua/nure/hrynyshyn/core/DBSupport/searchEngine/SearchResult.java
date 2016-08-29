@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class SearchResult {
 
+    private int result_ID;
     private Train train;
     private Station departStation;
     private long departTime;
@@ -20,6 +21,14 @@ public class SearchResult {
     List<Carriage> carriages;
     private double price;
     private RouteInfo routeInfo;
+
+    public int getResult_ID() {
+        return result_ID;
+    }
+
+    public void setResult_ID(int result_ID) {
+        this.result_ID = result_ID;
+    }
 
     public Train getTrain() {
         return train;

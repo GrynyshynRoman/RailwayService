@@ -32,8 +32,10 @@ public class Search {
     public List<SearchResult> search() {
         List<Train> trains = searchTrains();
         List<SearchResult> searchResults = new ArrayList<>();
+        int resultNumber=1;
         for (Train train : trains) {
             SearchResult searchResult = new SearchResult();
+            searchResult.setResult_ID(resultNumber++);
             searchResult.setTrain(train);
             searchResult.setDepartStation(departStation);
             searchResult.setDestStation(destStation);

@@ -48,10 +48,10 @@ public class SearchServlet extends HttpServlet {
                 session.setAttribute("searchResults", results);
                 response.sendRedirect("searchResults.jsp");
             }else {
-                response.sendRedirect("searchError.html");
+                response.sendRedirect("searchError.jsp");
             }
         } else {
-            response.sendRedirect("searchError.html");
+            response.sendRedirect("searchError.jsp");
         }
 
     }

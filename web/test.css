@@ -2,9 +2,10 @@ label{
     display: inline-block;
     float: left;
     clear: left;
-    width: 150px;
+    width: 200px;
     text-align: left;
 }
+/*
 input {
     display: inline-block;
     float: left;
@@ -12,4 +13,4 @@ input {
 select{
     display: inline-block;
     float: left;
-}
+}*/

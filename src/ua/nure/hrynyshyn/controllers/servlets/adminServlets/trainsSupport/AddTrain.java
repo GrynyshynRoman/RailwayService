@@ -24,11 +24,13 @@ public class AddTrain extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        Train train=new Train();
+        Train train = new Train();
+
         train.setRoute_ID(Integer.parseInt(request.getParameter("route_ID")));
 
-        ConnectionPool cp=(ConnectionPool)getServletContext().getAttribute("DBConnection");
-        Connection connection=cp.getConnection();
+
+        ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("DBConnection");
+        Connection connection = cp.getConnection();
         DAOFactory.getTrainDAO(connection).insert(train);
         cp.freeConnection(connection);
 

@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: GrynyshynRoman
@@ -6,107 +5,108 @@
   Time: 00:34
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" errorPage="errorPage.jsp"%>
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="ua.nure.hrynyshyn.resources.pageContent"/>
 <html>
 <head>
     <title>Trains edit</title>
     <link rel="stylesheet" href="test.css">
 </head>
 <body>
-<%@include file="adminPanel.html"%>
-<table align="center" width="100%">
+<%@include file="languagePanel.html"%>
+<%@include file="adminPanel.jsp"%>
+<table align="center" width="90%" border="1">
     <tr>
         <td>
-            Add train:<br>
+            <fmt:message key="trains.addTrain"/>:<br>
             <form action="addTrain" method="post">
                 <div>
-                    <label>Route id: </label><input type="text" name="route_ID">
-                    <label></label><input type="submit" value="Add">
+                    <label><fmt:message key="trains.routeID"/> </label><input type="text" name="route_ID">
+                    <label></label><input type="submit" value="<fmt:message key="admin.add"/> ">
                 </div>
             </form>
         </td>
         <td>
-            Edit train:<br>
+            <fmt:message key="trains.editTrain"/>:<br>
             <form action="editTrain" method="post">
-                <label>ID:</label> <input type="text" name="train_ID">
-                <label>Route id:</label> <input type="text" name="route_ID">
-                <label></label><input type="submit" value="Edit">
+                <label><fmt:message key="trains.id"/> :</label> <input type="text" name="train_ID"><br>
+                <label><fmt:message key="trains.routeID"/> :</label> <input type="text" name="route_ID"><br>
+                <label></label><input type="submit" value="<fmt:message key="admin.edit"/> ">
             </form>
         </td>
         <td>
-            Delete train:<br>
+            <fmt:message key="trains.deleteTrain"/> <br>
             <form action="deleteTrain" method="post">
                 <label>ID:</label> <input type="text" name="train_ID">
-                <label></label><input type="submit" value="Delete">
+                <label></label><input type="submit" value="<fmt:message key="admin.delete"/> ">
             </form>
         </td>
     </tr>
     </table>
-<table align="center" width="100%">
+<br>
+<table align="center" width="90%" border="1">
     <tr>
         <td>
-            Add carriage:<br>
+            <fmt:message key="carriage.addCarriage"/> :<br>
             <form action="addCarriage" method="post">
-                <label>Train </label> <input type="text" name="train_ID">
-                <label>Carriage number:</label> <input type="text" name="carriageNumber">
-                <label>Type:</label>
+                <label><fmt:message key="trains.id"/> </label> <input type="text" name="train_ID"><br>
+                <label><fmt:message key="carriage.carriageNum"/> :</label> <input type="text" name="carriageNumber"><br>
+                <label><fmt:message key="carriage.type"/> :</label>
                 <select name="type">
-                    <option value="common">Common</option>
-                    <option value="reservedSeat">Reserved seat</option>
-                    <option value="coupe">Coupe</option>
+                    <option value="common"><fmt:message key="carriage.common"/> </option>
+                    <option value="reservedSeat"><fmt:message key="carriage.reservSeat"/> </option>
+                    <option value="coupe"><fmt:message key="carriage.coupe"/> </option>
                 </select>
-                <label>Total seats:</label> <input type="text" name="totalSeats">
-                <label>Reserved seats:</label> <input type="text" name="reservedSeats">
-                <label></label> <input type="submit" value="Add">
+                <br>
+                <label><fmt:message key="carriage.totalSeats"/> :</label> <input type="text" name="totalSeats"><br>
+                <label><fmt:message key="carriage.reservSeats"/> :</label> <input type="text" name="reservedSeats"><br>
+                <label></label> <input type="submit" value="<fmt:message key="admin.add"/> ">
             </form>
         </td>
         <td>
-            Edit carriage:<br>
+            <fmt:message key="carriage.editCarriage"/> :<br>
             <form action="editCarriage" method="post">
-                <label> Carriage id:</label> <input type="text" name="carriage_ID">
-                <label> Train id:</label> <input type="text" name="train_ID">
-                <label> Carriage number: </label><input type="text" name="carriageNumber">
-                <label> Type:</label>
+                <label> <fmt:message key="carriage.carriageID"/> :</label> <input type="text" name="carriage_ID"><br>
+                <label><fmt:message key="trains.id"/> </label> <input type="text" name="train_ID"><br>
+                <label><fmt:message key="carriage.carriageNum"/> :</label> <input type="text" name="carriageNumber"><br>
+                <label><fmt:message key="carriage.type"/> :</label>
                 <select name="type">
-                    <option value="common">Common</option>
-                    <option value="reservedSeat">Reserved seat</option>
-                    <option value="coupe">Coupe</option>
-                </select>
-                <label> Total seats:</label> <input type="text" name="totalSeats">
-                <label> Reserved seats:</label> <input type="text" name="reservedSeats">
-                <label></label> <input type="submit" value="Edit">
+                    <option value="common"><fmt:message key="carriage.common"/> </option>
+                    <option value="reservedSeat"><fmt:message key="carriage.reservSeat"/> </option>
+                    <option value="coupe"><fmt:message key="carriage.coupe"/> </option>
+                </select><br>
+                <label><fmt:message key="carriage.totalSeats"/> :</label> <input type="text" name="totalSeats"><br>
+                <label><fmt:message key="carriage.reservSeats"/> :</label> <input type="text" name="reservedSeats"><br>
+                <label></label> <input type="submit" value="<fmt:message key="admin.edit"/> ">
             </form>
         </td>
         <td>
-            Delete carriage:<br>
+            <fmt:message key="carriage.delCarriage"/> :<br>
             <form action="deleteCarriage" method="post">
-                <label> Carriage id:</label> <input type="text" name="carriage_ID">
-                <label></label> <input type="submit" value="Delete">
+                <label> <fmt:message key="carriage.carriageID"/> :</label> <input type="text" name="carriage_ID">
+                <label></label> <input type="submit" value="<fmt:message key="admin.delete"/> ">
             </form>
         </td>
     </tr>
 </table>
 <br>
 <br>
-<table align="center" width="100%">
+<table align="center" width="90%">
     <tr>
         <td>
             <table border="1">
                 <tr>
-                    <td>Train_ID</td>
-                    <td>Route_ID</td>
+                    <td><fmt:message key="trains.id"/> </td>
+                    <td><fmt:message key="trains.routeID"/> </td>
 
                 </tr>
                 <c:forEach var="train" items="${trains}">
                     <tr>
                         <td>${train.train_ID}</td>
                         <td>${train.route_ID}</td>
-                        <td>
-                            <form action="deleteTrain" method="post">
-                                <input type="text" name="train_ID" value="${train.train_ID}" hidden>
-                                <input type="submit" value="Delete">
-                            </form>
-                        </td>
                     </tr>
                 </c:forEach>
             </table>
@@ -114,12 +114,12 @@
         <td>
             <table border="1">
                 <tr>
-                    <td>Carriage_ID</td>
-                    <td>Train_ID</td>
-                    <td>Number</td>
-                    <td>Type</td>
-                    <td>Total seats</td>
-                    <td>Reserved seats</td>
+                    <td><fmt:message key="carriage.carriageID"/> </td>
+                    <td><fmt:message key="trains.id"/></td>
+                    <td><fmt:message key="carriage.number"/> </td>
+                    <td><fmt:message key="carriage.type"/></td>
+                    <td><fmt:message key="carriage.totalSeats"/></td>
+                    <td><fmt:message key="carriage.reservSeats"/></td>
                 </tr>
                 <c:forEach var="carriage" items="${carriages}">
                     <tr>
@@ -129,12 +129,6 @@
                         <td>${carriage.type}</td>
                         <td>${carriage.totalSeats} </td>
                         <td>${carriage.reservedSeats}</td>
-                        <td>
-                            <form action="deleteCarriage" method="post">
-                                <input type="text" name="carriage_ID" value="${carriage.carriage_ID}" hidden>
-                                <input type="submit" value="Delete">
-                            </form>
-                        </td>
                     </tr>
                 </c:forEach>
             </table>
