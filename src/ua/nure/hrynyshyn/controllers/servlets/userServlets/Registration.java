@@ -7,13 +7,11 @@ import ua.nure.hrynyshyn.core.DBSupport.connectionPool.ConnectionPool;
 import ua.nure.hrynyshyn.core.entities.service.Role;
 import ua.nure.hrynyshyn.core.entities.service.User;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
@@ -48,7 +46,7 @@ public class Registration extends HttpServlet {
             if (!logins.contains(user.getLogin())) {
                 userDAO.insert(user);
 
-                RoleDAO roleDAO = DAOFactory.getRoleDao(connection);
+                RoleDAO roleDAO = DAOFactory.getRoleDAO(connection);
                 roleDAO.insert(role);
 
 

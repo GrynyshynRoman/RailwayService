@@ -1,7 +1,6 @@
 package ua.nure.hrynyshyn.core.DBSupport.searchEngine;
 
 
-
 import org.apache.log4j.Logger;
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
 
@@ -32,7 +31,7 @@ public class Search {
     public List<SearchResult> search() {
         List<Train> trains = searchTrains();
         List<SearchResult> searchResults = new ArrayList<>();
-        int resultNumber=1;
+        int resultNumber = 1;
         for (Train train : trains) {
             SearchResult searchResult = new SearchResult();
             searchResult.setResult_ID(resultNumber++);
@@ -58,27 +57,31 @@ public class Search {
      * @return list of trains
      */
     private List<Train> searchTrains() {
-        List<Train> trains = new ArrayList<>();
+        List<Train> potentialTrains = new ArrayList<>();
         List<Integer> routes = searchRoute_IDs();
         for (Integer route_ID : routes) {
-            trains.addAll(DAOFactory.getTrainDAO(connection).getByRouteID(route_ID));
+            potentialTrains.addAll(DAOFactory.getTrainDAO(connection).getByRouteID(route_ID));
         }
         String sql = "SELECT *\n" +
                 "FROM trains JOIN carriages ON trains.train_ID = carriages.train_ID\n" +
                 "WHERE trains.train_ID=? AND carriages.reservedSeats < carriages.totalSeats";
         List<Train> result = new ArrayList<>();
-        for (Train train : trains) {
+        List<Integer> selectedTrainsIDs = new ArrayList<>();
+        for (Train potentialTrain : potentialTrains) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setInt(1, train.getTrain_ID());
+                statement.setInt(1, potentialTrain.getTrain_ID());
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
                     Train t = new Train();
                     t.setTrain_ID(rs.getInt(1));
                     t.setRoute_ID(rs.getInt(2));
-                    result.add(train);
+                    if (!selectedTrainsIDs.contains(t.getTrain_ID())) {
+                        result.add(potentialTrain);
+                        selectedTrainsIDs.add(potentialTrain.getTrain_ID());
+                    }
                 }
             } catch (SQLException e) {
-                log.error("Train search failure",e);
+                log.error("Train search failure", e);
             }
         }
         return result;
@@ -117,7 +120,7 @@ public class Search {
                 }
             }
         } catch (SQLException e) {
-            log.error("Route search failure",e);
+            log.error("Route search failure", e);
         }
         return routes_IDs;
     }

@@ -1,0 +1,16 @@
+<taglib>
+    <uri>ua/nure/hrynyshyn/resources/custom.tld</uri>
+    <jsp-version>2.0</jsp-version>
+    <tlib-version>1.0</tlib-version>
+    <short-name>custom tld</short-name>
+    <tag>
+        <name>stationName</name>
+        <tag-class>ua.nure.hrynyshyn.core.customTags.stationTag</tag-class>
+        <attribute>
+            <name>ID</name>
+            <type>int</type>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <body-content>scriptless</body-content>
+    </tag>
+</taglib>

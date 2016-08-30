@@ -27,8 +27,6 @@
     </context-param>
 
 
-
-
     <!-- Filters and listeners-->
     <listener>
         <listener-class>ua.nure.hrynyshyn.controllers.listeners.appInitListener</listener-class>
@@ -64,8 +62,6 @@
         <exception-type>java.lang.Throwable</exception-type>
         <location>/errorServlet</location>
     </error-page>
-
-
 
 
 </web-app>

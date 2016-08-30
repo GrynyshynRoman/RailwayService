@@ -9,10 +9,12 @@ public class Ticket {
     private int ticket_ID;
     private int user_ID;
     private int train_ID;
+    private int carriageNumber;
     private int deptStation_ID;
-    private Date deptTime;
+    private long deptTime;
     private int destStation_ID;
-    private Date destTime;
+    private long destTime;
+    private double price;
 
     public int getTicket_ID() {
         return ticket_ID;
@@ -38,6 +40,14 @@ public class Ticket {
         this.train_ID = train_ID;
     }
 
+    public int getCarriageNumber() {
+        return carriageNumber;
+    }
+
+    public void setCarriageNumber(int carriageNumber) {
+        this.carriageNumber = carriageNumber;
+    }
+
     public int getDeptStation_ID() {
         return deptStation_ID;
     }
@@ -46,11 +56,11 @@ public class Ticket {
         this.deptStation_ID = deptStation_ID;
     }
 
-    public Date getDeptTime() {
+    public long getDeptTime() {
         return deptTime;
     }
 
-    public void setDeptTime(Date deptTime) {
+    public void setDeptTime(long deptTime) {
         this.deptTime = deptTime;
     }
 
@@ -62,11 +72,19 @@ public class Ticket {
         this.destStation_ID = destStation_ID;
     }
 
-    public Date getDestTime() {
+    public long getDestTime() {
         return destTime;
     }
 
-    public void setDestTime(Date destTime) {
+    public void setDestTime(long destTime) {
         this.destTime = destTime;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

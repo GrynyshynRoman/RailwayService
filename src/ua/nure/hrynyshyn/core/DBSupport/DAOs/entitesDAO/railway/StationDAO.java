@@ -15,6 +15,21 @@ import java.util.List;
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class StationDAO extends AbstractDAO<Station> {
+
+    public String getName(int id){
+        String name=null;
+        String sql="SELECT name FROM stations WHERE station_ID=?";
+        try(PreparedStatement statement=connection.prepareStatement(sql)){
+            statement.setInt(1,id);
+            ResultSet rs=statement.executeQuery();
+            if (rs.next()){
+                name=rs.getString(1);
+            }
+        }catch (SQLException e){
+            log.error("Getting station name failure",e);
+        }
+        return name;
+    }
     public List<String> getAllNames() {
         String sql = "SELECT name FROM stations";
         List<String> names = new ArrayList<>();

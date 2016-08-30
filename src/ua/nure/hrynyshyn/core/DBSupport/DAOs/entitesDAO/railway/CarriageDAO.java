@@ -15,6 +15,35 @@ import java.util.logging.Level;
  * Created by GrynyshynRoman on 04.08.2016.
  */
 public class CarriageDAO extends AbstractDAO<Carriage> {
+    public boolean reserveSeat(int traint_ID, int carriageNumber) {
+        boolean isExecuted = false;
+        String sql = "UPDATE carriages SET reservedSeats=reservedSeats+1 WHERE train_ID=? AND carriageNumber=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, traint_ID);
+            statement.setInt(2, carriageNumber);
+            isExecuted = statement.execute();
+        } catch (SQLException e) {
+            log.error("Seat reserving failure", e);
+            return false;
+        }
+        return isExecuted;
+    }
+
+    public Carriage getByNumber(int train_ID, int carriageNumber) {
+        Carriage carriage = null;
+        String sql = "SELECT * FROM carriages WHERE train_ID=? AND carriageNumber=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, train_ID);
+            statement.setInt(2, carriageNumber);
+            ResultSet rs = statement.executeQuery();
+            List<Carriage> carriages = parseResultSet(rs);
+            carriage = carriages.iterator().next();
+        } catch (SQLException e) {
+            log.error("Can't get cattiage by number", e);
+        }
+        return carriage;
+    }
+
     public List<Carriage> getNotFullCarriages(int train_ID) {
         List<Carriage> carriages = null;
         String sql = "SELECT *\n" +

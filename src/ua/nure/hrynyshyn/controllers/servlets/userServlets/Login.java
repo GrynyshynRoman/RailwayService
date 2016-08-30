@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
         UserDAO userDAO = DAOFactory.getUserDAO(connection);
         User user = userDAO.getByLogin(login);
 
-        RoleDAO roleDAO = DAOFactory.getRoleDao(connection);
+        RoleDAO roleDAO = DAOFactory.getRoleDAO(connection);
         Role role = roleDAO.getByLogin(login);
 
 

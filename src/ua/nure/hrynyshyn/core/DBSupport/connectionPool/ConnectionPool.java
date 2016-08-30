@@ -57,6 +57,9 @@ public class ConnectionPool {
         }
         return instance;
     }
+    static synchronized public ConnectionPool getInstance(){
+        return instance;
+    }
 
     /**
      * Returns active connection from connections list. Removes all invalid connections.

@@ -21,6 +21,8 @@ public class Logout extends HttpServlet {
         user.setLogged(false);
         session.removeAttribute("user");
         session.removeAttribute("role");
+        session.removeAttribute("searchResults");
+        session.removeAttribute("selectedResult");
         response.sendRedirect("index.jsp");
 
     }

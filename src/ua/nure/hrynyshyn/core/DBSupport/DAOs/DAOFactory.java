@@ -3,6 +3,7 @@ package ua.nure.hrynyshyn.core.DBSupport.DAOs;
 
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.railway.*;
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.service.RoleDAO;
+import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.service.TicketDAO;
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.service.UserDAO;
 
 import java.sql.Connection;
@@ -37,5 +38,7 @@ public class DAOFactory {
         return new UserDAO(connection);
     }
 
-    public static RoleDAO getRoleDao(Connection connection){ return new RoleDAO(connection);}
+    public static RoleDAO getRoleDAO(Connection connection){ return new RoleDAO(connection);}
+
+    public static TicketDAO getTicketDAO(Connection connection){return new TicketDAO(connection);}
 }

@@ -15,6 +15,8 @@
     <title>SearchResults</title>
 </head>
 <body>
+<%@include file="languagePanel.html"%>
+<jsp:include page="profileBar.jsp"/>
 <table border="1" align="center" width="80%">
     <tr>
         <td><fmt:message key="search.trainNumber"/></td>
@@ -49,7 +51,7 @@
                 <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${destTime}"/>
             </td>
             <td>
-                <table border="1">
+                <table align="center" width="90%">
                     <tr>
                         <td><fmt:message key="search.carriageNumber"/></td>
                         <td><fmt:message key="search.carriageType"/></td>
@@ -73,8 +75,8 @@
             </td>
             <c:if test="${user.logged}">
                 <td>
-                    <form action="/buyTicket" method="post">
-                        <input type="text" name="trainNumber" value="${result.result_ID}" hidden>
+                    <form action="selectTrain" method="get">
+                        <input type="text" name="result_ID" value="${result.result_ID}" hidden>
                         <input type="submit" value="<fmt:message key="ticket.buy"/> "/>
                     </form>
                 </td>
