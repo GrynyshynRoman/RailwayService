@@ -13,22 +13,30 @@ import java.util.List;
 import java.util.logging.Level;
 
 /**
- * Created by GrynyshynRoman on 21.08.2016.
+ * Data access object for user's role.
  */
 public class RoleDAO extends AbstractDAO<Role> {
+    /**
+     * Returns role for user with specified login.
+     *
+     * @param login user's login.
+     * @return role instance.
+     */
     public Role getByLogin(String login) {
         String sql = "SELECT * FROM roles WHERE login=?";
-        List<Role> roles = null;
+        List<Role> roles;
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, login);
             roles = parseResultSet(statement.executeQuery());
+            if (roles.size() != 0) {
+                return roles.iterator().next();
+            }
         } catch (SQLException e) {
             log.error("Can't find role", e);
         }
-        if (roles.size() != 0) {
-            return roles.iterator().next();
-        } else return null;
+        return null;
     }
+
     @Override
     protected String getInsertQuery() {
         return "INSERT INTO roles(login, role) VALUES (?,?)";
@@ -56,9 +64,9 @@ public class RoleDAO extends AbstractDAO<Role> {
 
     @Override
     protected List<Role> parseResultSet(ResultSet resultSet) throws SQLException {
-        List<Role> roles=new ArrayList<>();
-        while (resultSet.next()){
-            Role role=new Role();
+        List<Role> roles = new ArrayList<>();
+        while (resultSet.next()) {
+            Role role = new Role();
             role.setRole_ID(resultSet.getInt(1));
             role.setLogin(resultSet.getNString(2));
             role.setRole(resultSet.getString(3));
@@ -69,23 +77,28 @@ public class RoleDAO extends AbstractDAO<Role> {
 
     @Override
     protected void prepareInsertStatement(PreparedStatement statement, Role object) throws SQLException {
-        statement.setString(1,object.getLogin());
-        statement.setString(2,object.getRole());
+        statement.setString(1, object.getLogin());
+        statement.setString(2, object.getRole());
     }
 
     @Override
     protected void prepareUpdateStatement(PreparedStatement statement, Role object) throws SQLException {
-        statement.setString(1,object.getLogin());
-        statement.setString(2,object.getRole());
-        statement.setInt(3,object.getRole_ID());
+        statement.setString(1, object.getLogin());
+        statement.setString(2, object.getRole());
+        statement.setInt(3, object.getRole_ID());
     }
 
     @Override
     protected void prepareDeleteStatement(PreparedStatement statement, Role object) throws SQLException {
-        statement.setInt(1,object.getRole_ID());
+        statement.setInt(1, object.getRole_ID());
     }
 
+    /**
+     * Simple constructor.
+     *
+     * @param connection connection with database
+     */
     public RoleDAO(Connection connection) {
-        super.connection=connection;
+        super.connection = connection;
     }
 }

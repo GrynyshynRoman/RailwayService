@@ -1,7 +1,7 @@
 package ua.nure.hrynyshyn.core.entities.service;
 
 /**
- * Created by GrynyshynRoman on 03.08.2016.
+ * Container for data about users.
  */
 public class User {
     private int user_ID;

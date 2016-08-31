@@ -3,20 +3,17 @@ package ua.nure.hrynyshyn.controllers.servlets.adminServlets.stationSupport;
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
 import ua.nure.hrynyshyn.core.DBSupport.connectionPool.ConnectionPool;
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
-import ua.nure.hrynyshyn.core.moderating.Administrator;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 15.08.2016.
+ * Editing station by specified id number.
  */
 @WebServlet(name = "editStation", urlPatterns = "/editStation")
 public class EditStation extends HttpServlet {

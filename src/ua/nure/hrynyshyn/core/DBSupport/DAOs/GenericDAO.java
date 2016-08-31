@@ -4,23 +4,51 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Created by GrynyshynRoman on 18.07.2016.
+ * Data access object generic interface.
  */
 public interface GenericDAO<T> {
     /**
-     * Inserts new object to DB.
-     * @param object
-     * @throws SQLException
+     * Inserts new object into DB.
+     *
+     * @param object object for adding.
+     * @throws SQLException if some problems during conversation with database.
      */
-    public boolean insert(T object) throws SQLException;
+    boolean insert(T object) throws SQLException;
 
-    public T read(int id) throws SQLException;
+    /**
+     * Returns object from database by it's id.
+     *
+     * @param id object's id.
+     * @return object instance.
+     * @throws SQLException if some problems during conversation with database.
+     */
+    T read(int id) throws SQLException;
 
-    public boolean update(T object) throws SQLException;
+    /**
+     * Updates object in database.
+     *
+     * @param object object for updating.
+     * @return true if operation success.
+     * @throws SQLException if some problems during conversation with database.
+     */
+    boolean update(T object) throws SQLException;
 
-    public boolean delete(T object) throws SQLException;
+    /**
+     * Deletes object from database.
+     *
+     * @param object for deleting.
+     * @return true if operation success.
+     * @throws SQLException if some problems during conversation with database.
+     */
+    boolean delete(T object) throws SQLException;
 
-    public List<T> getAll() throws SQLException;
+    /**
+     * Returns all rows from database table.
+     *
+     * @return list of objects.
+     * @throws SQLException if some problems during conversation with database.
+     */
+    List<T> getAll() throws SQLException;
 
 
 }

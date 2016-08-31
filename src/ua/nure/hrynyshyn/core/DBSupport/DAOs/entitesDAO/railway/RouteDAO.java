@@ -14,9 +14,16 @@ import java.util.List;
 import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseDateTime;
 
 /**
- * Created by GrynyshynRoman on 04.08.2016.
+ * Data access object for route.
  */
 public class RouteDAO extends AbstractDAO<Route> {
+    /**
+     * Returns destination time for specified route.
+     *
+     * @param route_ID   route
+     * @param station_ID station
+     * @return time
+     */
     public long getDestTime(int route_ID, int station_ID) {
         long date = 0;
         String sql = "SELECT destTime\n" +
@@ -34,6 +41,13 @@ public class RouteDAO extends AbstractDAO<Route> {
         return date;
     }
 
+    /**
+     * Returns department time for specified station
+     *
+     * @param route_ID   route
+     * @param station_ID station
+     * @return time
+     */
     public long getDepartTime(int route_ID, int station_ID) {
         long date = 0;
         String sql = "SELECT departTime\n" +
@@ -46,7 +60,6 @@ public class RouteDAO extends AbstractDAO<Route> {
                 date = parseDateTime(rs.getString(1));
             }
         } catch (SQLException e) {
-            //// TODO: 25.08.2016 logging
             log.error("Can't get depart time", e);
         }
         return date;
@@ -115,6 +128,11 @@ public class RouteDAO extends AbstractDAO<Route> {
         statement.setInt(1, object.getRoute_ID());
     }
 
+    /**
+     * Simple constructor.
+     *
+     * @param connection connection with database
+     */
     public RouteDAO(Connection connection) {
         super.connection = connection;
     }

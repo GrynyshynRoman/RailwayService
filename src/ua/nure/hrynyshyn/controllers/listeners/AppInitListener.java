@@ -14,17 +14,24 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
+/**
+ * Context listener. Runs when application initializing process is running.
+ * Init's connection with database, when application is deploying.
+ * And closes all connections, when application is stopping.
+ * Uses context init parameters from DD to initialize connection pool.
+ * Also shuts down logger.
+ */
 @WebListener()
-public class appInitListener implements ServletContextListener {
+public class AppInitListener implements ServletContextListener {
 
-    // -------------------------------------------------------
-    // ServletContextListener implementation
-    // -------------------------------------------------------
+    /**
+     * This method is called when the servlet context is
+     * initialized(when the Web application is deployed).
+     *
+     * @param sce context event
+     */
     public void contextInitialized(ServletContextEvent sce) {
-      /* This method is called when the servlet context is
-         initialized(when the Web application is deployed). 
-         You can initialize servlet context related data here.
-      */
+
         ServletContext sc = sce.getServletContext();
         String driver = sc.getInitParameter("DB_Driver");
         String URL = sc.getInitParameter("DB_URL");
@@ -37,11 +44,15 @@ public class appInitListener implements ServletContextListener {
         sc.setInitParameter("language", "en");
     }
 
+    /**
+     * This method is invoked when the Servlet Context
+     * (the Web application) is undeployed or
+     * Application Server shuts down.
+     *
+     * @param sce
+     */
     public void contextDestroyed(ServletContextEvent sce) {
-      /* This method is invoked when the Servlet Context 
-         (the Web application) is undeployed or 
-         Application Server shuts down.
-      */
+
         ConnectionPool connectionPool = (ConnectionPool) sce.getServletContext().getAttribute("DBConnection");
         connectionPool.release();
 

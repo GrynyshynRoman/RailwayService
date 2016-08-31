@@ -12,7 +12,6 @@ import java.util.Iterator;
 /**
  * Primitive implementation of connection pool for reducing time for creating new connection on each request.
  * Based on array list. Implements singleton pattern. One instance of connection poll for all application.
- * Created by Hrynyshyn Roman on 08.08.2016.
  */
 public class ConnectionPool {
 
@@ -57,7 +56,13 @@ public class ConnectionPool {
         }
         return instance;
     }
-    static synchronized public ConnectionPool getInstance(){
+
+    /**
+     * Overloaded getConnection method. Used only after connection pool initialized.
+     *
+     * @return connection pool instance.
+     */
+    static synchronized public ConnectionPool getInstance() {
         return instance;
     }
 

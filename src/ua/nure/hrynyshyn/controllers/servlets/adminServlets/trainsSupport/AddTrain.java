@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 18.08.2016.
+ * Adds new train on specified route.
  */
 @WebServlet(name = "addTrain", urlPatterns = "/addTrain")
 public class AddTrain extends HttpServlet {

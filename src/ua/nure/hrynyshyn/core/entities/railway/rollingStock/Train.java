@@ -1,12 +1,8 @@
 package ua.nure.hrynyshyn.core.entities.railway.rollingStock;
 
 
-import ua.nure.hrynyshyn.core.entities.railway.realEstate.Route;
-
-import java.util.List;
-
 /**
- * Created by HrynyshynRoman on 03.08.2016.
+ * Container for data about trains.
  */
 public class Train {
     private int train_ID;

@@ -7,7 +7,7 @@ import ua.nure.hrynyshyn.core.entities.railway.realEstate.WayStation;
 import java.util.List;
 
 /**
- * Created by GrynyshynRoman on 26.08.2016.
+ * Container of necessary data for displaying all information about train route.
  */
 public class RouteInfo {
     private Route route;

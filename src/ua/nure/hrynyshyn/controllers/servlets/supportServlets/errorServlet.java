@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by GrynyshynRoman on 29.08.2016.
+ * Invokes when some exception caused. Simply redirects to error page.
  */
 @WebServlet(name = "errorServlet", urlPatterns = "/errorServlet")
 public class errorServlet extends HttpServlet {

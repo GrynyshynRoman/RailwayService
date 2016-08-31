@@ -17,7 +17,10 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 16.08.2016.
+ * Simple logging in process.
+ * Simply checks equality of inputted password and password of this user in database.
+ * By result redirects to login error page, or sets up user's session attributes, like user instance and user role.
+ * And, finally, redirects to page from which logging process was caused
  */
 @WebServlet(name = "login", urlPatterns = "/login")
 public class Login extends HttpServlet {
@@ -46,7 +49,8 @@ public class Login extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
                 session.setAttribute("role", role);
-                response.sendRedirect("index.jsp");
+                String referer=request.getHeader("referer");
+                response.sendRedirect(referer);
             } else {
                 response.sendRedirect("loginError.jsp");
             }

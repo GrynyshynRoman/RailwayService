@@ -14,6 +14,9 @@
     <title>Error Page</title>
 </head>
 <body>
+<%@include file="languagePanel.html"%>
+<jsp:include page="profileBar.jsp"/>
+<jsp:include page="navigationPanel.jsp"/>
 <div align="center">
     <fmt:message key="global.errorMessage"/><br>
     <a href="${header.referer}"><fmt:message key="global.back"/> </a>

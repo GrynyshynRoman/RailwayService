@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import ua.nure.hrynyshyn.core.DBSupport.DAOs.DAOFactory;
 
 
+import ua.nure.hrynyshyn.core.DBSupport.connectionPool.ConnectionPool;
 import ua.nure.hrynyshyn.core.entities.railway.realEstate.Station;
 import ua.nure.hrynyshyn.core.entities.railway.rollingStock.Train;
 
@@ -18,18 +19,26 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by GrynyshynRoman on 22.08.2016.
+ * Contains all methods for searching process between two stations on selected date.
  */
 public class Search {
+
     private static final Logger log = Logger.getLogger(Search.class.getName());
+
     private Station departStation;
     private Station destStation;
     private Date departDate;
     private Connection connection;
 
-
+    /**
+     * Last step of searching. Collects data to searchResults for displaying to user.
+     *
+     * @return list of search results.
+     */
     public List<SearchResult> search() {
+
         List<Train> trains = searchTrains();
+
         List<SearchResult> searchResults = new ArrayList<>();
         int resultNumber = 1;
         for (Train train : trains) {
@@ -52,16 +61,27 @@ public class Search {
     }
 
     /**
+     * Second step.
      * Searching for suitable trains on founded routes.
      *
      * @return list of trains
      */
     private List<Train> searchTrains() {
+
         List<Train> potentialTrains = new ArrayList<>();
+
         List<Integer> routes = searchRoute_IDs();
+        /*
+         collecting all trains from founded routes.
+         */
         for (Integer route_ID : routes) {
             potentialTrains.addAll(DAOFactory.getTrainDAO(connection).getByRouteID(route_ID));
         }
+        /*
+        Query for getting trains with available seats.
+        Returns duplicate trains data for each not full carriage.
+        Need to consider this feature.
+         */
         String sql = "SELECT *\n" +
                 "FROM trains JOIN carriages ON trains.train_ID = carriages.train_ID\n" +
                 "WHERE trains.train_ID=? AND carriages.reservedSeats < carriages.totalSeats";
@@ -75,6 +95,9 @@ public class Search {
                     Train t = new Train();
                     t.setTrain_ID(rs.getInt(1));
                     t.setRoute_ID(rs.getInt(2));
+                    /*
+                    Check, if founded train already exist in result list. If true, don't add it.
+                     */
                     if (!selectedTrainsIDs.contains(t.getTrain_ID())) {
                         result.add(potentialTrain);
                         selectedTrainsIDs.add(potentialTrain.getTrain_ID());
@@ -88,7 +111,10 @@ public class Search {
     }
 
     /**
+     * First step of searching.
      * Searching for suitable routes by specified depart and destination stations in specified date.
+     * <p>
+     * !!Cannot find routes by two way stations. Needs more work on searching query.
      *
      * @return ID's of suitable routes.
      */
@@ -125,11 +151,11 @@ public class Search {
         return routes_IDs;
     }
 
-    public Search(Station departStation, Station destStation, Date departDate, Connection connection) {
+    public Search(Station departStation, Station destStation, Date departDate) {
         this.departStation = departStation;
         this.destStation = destStation;
         this.departDate = departDate;
-        this.connection = connection;
+        connection = ConnectionPool.getInstance().getConnection();
     }
 
 

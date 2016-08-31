@@ -17,7 +17,10 @@ import java.sql.Connection;
 import java.util.List;
 
 /**
- * Created by GrynyshynRoman on 18.08.2016.
+ * Register new user in system.
+ * Creates new user instance, fill it by data from form
+ * and adds it to database if all data correct and passwords confirmed.
+ * Also checks uniqueness of login.
  */
 @WebServlet(name = "registration", urlPatterns = "/registration")
 public class Registration extends HttpServlet {

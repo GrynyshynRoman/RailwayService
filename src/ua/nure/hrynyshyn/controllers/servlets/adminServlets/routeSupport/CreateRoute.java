@@ -18,7 +18,7 @@ import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseDate;
 import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseTime;
 
 /**
- * Created by GrynyshynRoman on 15.08.2016.
+ * New route creating algorithm.
  */
 @WebServlet(name = "createRoute", urlPatterns = "/createRoute")
 public class CreateRoute extends HttpServlet {

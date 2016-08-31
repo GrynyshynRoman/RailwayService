@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 18.08.2016.
+ * Carriage deleting process.
  */
 @WebServlet(name = "deleteCarriage", urlPatterns = "/deleteCarriage")
 public class DeleteCarriage extends HttpServlet {

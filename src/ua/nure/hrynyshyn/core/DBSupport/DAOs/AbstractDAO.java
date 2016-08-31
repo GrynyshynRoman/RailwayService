@@ -10,33 +10,85 @@ import java.util.List;
 import java.util.logging.Level;
 
 
-
 /**
- * Created by GrynyshynRoman on 18.07.2016.
+ * Particle implementation of data access object. Provides general CRUD operations for objects.
  */
 public abstract class AbstractDAO<T> implements GenericDAO<T> {
-    protected static final Logger log=Logger.getLogger(AbstractDAO.class.getName());
+
+    protected static final Logger log = Logger.getLogger(AbstractDAO.class.getName());
 
     protected Connection connection;
 
+    /**
+     * Returns query string for adding object to database.
+     *
+     * @return query.
+     */
     protected abstract String getInsertQuery();
 
+    /**
+     * Returns query string for getting object from database by id.
+     *
+     * @return query.
+     */
     protected abstract String getByIdQuery();
 
+    /**
+     * Returns query string for updating object in database.
+     *
+     * @return query.
+     */
     protected abstract String getUpdateQuery();
 
+    /**
+     * Returns query string for deleting object from database.
+     *
+     * @return query.
+     */
     protected abstract String getDeleteQuery();
 
+    /**
+     * Returns query string for getting all objects from database.
+     *
+     * @return query.
+     */
     protected abstract String getGetAllQuery();
 
+    /**
+     * Provides algorithm for parsing query's result set.
+     *
+     * @param resultSet result set for parsing
+     * @return list of objects from result set.
+     * @throws SQLException if some problems during conversation with database.
+     */
     protected abstract List<T> parseResultSet(ResultSet resultSet) throws SQLException;
 
+    /**
+     * Algorithm for preparing insert statement.
+     *
+     * @param statement statement fro preparing
+     * @param object    container of data for statement attributes.
+     * @throws SQLException if some problems during conversation with database
+     */
     protected abstract void prepareInsertStatement(PreparedStatement statement, T object) throws SQLException;
 
+    /**
+     * Algorithm for preparing update statement.
+     *
+     * @param statement statement fro preparing
+     * @param object    container of data for statement attributes.
+     * @throws SQLException if some problems during conversation with database
+     */
     protected abstract void prepareUpdateStatement(PreparedStatement statement, T object) throws SQLException;
 
+    /**
+     * Algorithm for preparing delete statement.
+     *
+     * @param statement statement fro preparing
+     * @param object    container of data for statement attributes.
+     * @throws SQLException if some problems during conversation with database
+     */
     protected abstract void prepareDeleteStatement(PreparedStatement statement, T object) throws SQLException;
-
 
 
     @Override
@@ -46,7 +98,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
             prepareInsertStatement(statement, object);
             statement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Can't add new object to DB",e);
+            log.error("Can't add new object to DB", e);
             return false;
         }
         log.info("New record added");
@@ -60,10 +112,13 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             objects = parseResultSet(statement.executeQuery());
+            if (objects.size() != 0) {
+                return objects.iterator().next();
+            }
         } catch (SQLException e) {
-            log.error("Can't read object from DB",e);
+            log.error("Can't read object from DB", e);
         }
-        return objects.iterator().next();
+        return null;
     }
 
     @Override
@@ -73,7 +128,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
             prepareUpdateStatement(statement, object);
             statement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Can't update DB object",e);
+            log.error("Can't update DB object", e);
             return false;
         }
         log.info("Record updated");
@@ -87,7 +142,7 @@ public abstract class AbstractDAO<T> implements GenericDAO<T> {
             prepareDeleteStatement(statement, object);
             statement.executeUpdate();
         } catch (SQLException e) {
-            log.error("Can't delete object from",e);
+            log.error("Can't delete object from", e);
             return false;
         }
         log.info("Record deleted");

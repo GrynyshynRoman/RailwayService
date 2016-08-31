@@ -3,7 +3,7 @@ package ua.nure.hrynyshyn.core.entities.railway.realEstate;
 
 
 /**
- * Created by GrynyshynRoman on 03.08.2016.
+ * Container for data about stations.
  */
 public class Station {
     private int station_ID;

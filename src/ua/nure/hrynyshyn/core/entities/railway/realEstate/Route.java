@@ -2,7 +2,7 @@ package ua.nure.hrynyshyn.core.entities.railway.realEstate;
 
 
 /**
- * Created by HrynyshynRoman on 03.08.2016.
+ * Container for data about routes.
  */
 public class Route {
     private int route_ID;

@@ -10,27 +10,42 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 29.08.2016.
+ * Simple custom tag. Used for displaying station name by it's id-number.
+ * Have additional attribute "showID". It's true by default. Defines show or not station id after name.
  */
 public class stationTag extends SimpleTagSupport {
-
+    /**
+     * Station id.
+     */
     private int ID;
+    /**
+     * Definer, set station id visible in output, or hide it.
+     */
+    private boolean showID = true;
 
     public void setID(int ID) {
         this.ID = ID;
     }
 
-    private String getStationName(int id){
-        ConnectionPool cp=ConnectionPool.getInstance();
-        Connection connection=cp.getConnection();
-        String name= DAOFactory.getStationDAO(connection).getName(id);
-        return name;
+    public void setShowID(boolean showID) {
+        this.showID = showID;
+    }
+
+    private String getStationName(int id) {
+        ConnectionPool cp = ConnectionPool.getInstance();
+        Connection connection = cp.getConnection();
+        return DAOFactory.getStationDAO(connection).getName(id);
     }
 
     @Override
     public void doTag() throws JspException, IOException {
-        JspWriter out=getJspContext().getOut();
-        String name=getStationName(ID);
-        out.println(name+" ("+ ID +")");
+        JspWriter out = getJspContext().getOut();
+        String name = getStationName(ID);
+        if (showID) {
+            out.println(name + " (" + ID + ")");
+        } else {
+            out.println(name);
+        }
+
     }
 }

@@ -1,7 +1,7 @@
 package ua.nure.hrynyshyn.core.entities.railway.rollingStock;
 
 /**
- * Created by GrynyshynRoman on 03.08.2016.
+ * Container for data about carriages.
  */
 public class Carriage {
     private int carriage_ID;

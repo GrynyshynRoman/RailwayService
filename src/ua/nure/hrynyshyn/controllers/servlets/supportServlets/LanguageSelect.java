@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Created by GrynyshynRoman on 28.08.2016.
+ * Sets pages language by changing attribute "language". Then redirects to previous page.
  */
 @WebServlet(name = "LanguageSelect",urlPatterns = "/language")
 public class LanguageSelect extends HttpServlet {

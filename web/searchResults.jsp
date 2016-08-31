@@ -17,6 +17,7 @@
 <body>
 <%@include file="languagePanel.html"%>
 <jsp:include page="profileBar.jsp"/>
+<jsp:include page="navigationPanel.jsp"/>
 <table border="1" align="center" width="80%">
     <tr>
         <td><fmt:message key="search.trainNumber"/></td>
@@ -26,7 +27,7 @@
         <td><fmt:message key="search.carriages"/></td>
         <td><fmt:message key="search.price"/></td>
         <td><fmt:message key="search.routeInfo"/></td>
-        <c:if test="${user.logged}">
+        <c:if test="${sessionScope.user.logged}">
             <td></td>
         </c:if>
     </tr>
@@ -73,7 +74,7 @@
                     <input type="submit" value="<fmt:message key="search.info"/> ">
                 </form>
             </td>
-            <c:if test="${user.logged}">
+            <c:if test="${sessionScope.user.logged}">
                 <td>
                     <form action="selectTrain" method="get">
                         <input type="text" name="result_ID" value="${result.result_ID}" hidden>

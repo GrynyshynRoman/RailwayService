@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 22.08.2016.
+ *  Simple filter. Runs each time when stationsEdit.jsp page is requested. Updates stations table content.
  */
 @WebFilter(filterName = "StationsListUpdate")
 public class StationsListUpdate implements Filter {

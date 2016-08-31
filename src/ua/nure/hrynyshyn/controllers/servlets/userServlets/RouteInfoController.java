@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by GrynyshynRoman on 26.08.2016.
+ * Collecting data for constructing info about selected route.
  */
 @WebServlet(name = "routeInfo", urlPatterns = "/routeInfo")
 public class RouteInfoController extends HttpServlet {
@@ -28,20 +28,27 @@ public class RouteInfoController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("DBConnection");
         Connection connection = cp.getConnection();
 
         int route_ID = Integer.parseInt(request.getParameter("route_ID"));
+
         Route route = DAOFactory.getRouteDAO(connection).read(route_ID);
+
         Station departStation = DAOFactory.getStationDAO(connection).read(route.getDepartStation_ID());
         Station destStation = DAOFactory.getStationDAO(connection).read(route.getDestStation_ID());
+/*
+Getting Station instances for route
+ */
         List<WayStation> wayStations = DAOFactory.getWayStationDAO(connection).getByRouteID(route_ID);
         List<Station> stations = new ArrayList<>();
         for (WayStation wayStation : wayStations) {
             Station station = DAOFactory.getStationDAO(connection).read(wayStation.getStation_ID());
             stations.add(station);
         }
-        RouteInfo routeInfo = new ua.nure.hrynyshyn.core.DBSupport.searchEngine.RouteInfo();
+
+        RouteInfo routeInfo = new RouteInfo();
         routeInfo.setRoute(route);
         routeInfo.setDepartStation(departStation);
         routeInfo.setDestStation(destStation);
@@ -50,6 +57,7 @@ public class RouteInfoController extends HttpServlet {
         request.setAttribute("routeInfo", routeInfo);
 
         cp.freeConnection(connection);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("routeInfo.jsp");
         dispatcher.forward(request, response);
     }

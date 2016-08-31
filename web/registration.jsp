@@ -16,6 +16,8 @@
 </head>
 <body>
 <%@include file="languagePanel.html"%>
+<jsp:include page="profileBar.jsp"/>
+<jsp:include page="navigationPanel.jsp"/>
 <h1 align="center"><fmt:message key="registration.title"/></h1>
 
 <table align="center">

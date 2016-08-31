@@ -13,23 +13,35 @@ import java.util.NoSuchElementException;
 import java.util.logging.Level;
 
 /**
- * Created by GrynyshynRoman on 18.08.2016.
+ * Data access object for user.
  */
 public class UserDAO extends AbstractDAO<User> {
+    /**
+     * Returns user instance by login.
+     *
+     * @param login user's login.
+     * @return user instance.
+     */
     public User getByLogin(String login) {
         String sql = "SELECT * FROM users WHERE login=?";
-        List<User> users = null;
+        List<User> users;
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, login);
             users = parseResultSet(statement.executeQuery());
+            if (users.size() != 0) {
+                return users.iterator().next();
+            }
         } catch (SQLException e) {
             log.error("Can't find user by login", e);
         }
-        if (users.size() != 0) {
-            return users.iterator().next();
-        } else return null;
+        return null;
     }
 
+    /**
+     * Returns all users logins.
+     *
+     * @return list of logins.
+     */
     public List<String> getLogins() {
         String slq = "SELECT  login FROM users";
         List<String> logins = new ArrayList<>();
@@ -106,6 +118,11 @@ public class UserDAO extends AbstractDAO<User> {
         statement.setInt(1, object.getUser_ID());
     }
 
+    /**
+     * Simple constructor.
+     *
+     * @param connection connection with database
+     */
     public UserDAO(Connection connection) {
         super.connection = connection;
     }

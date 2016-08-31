@@ -9,10 +9,9 @@ import ua.nure.hrynyshyn.core.DBSupport.DAOs.entitesDAO.service.UserDAO;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 18.07.2016.
+ * Simple DAO factory. Provides getters for all data access objects.
  */
 public class DAOFactory {
-
 
     public static RouteDAO getRouteDAO(Connection connection) {
         return new RouteDAO(connection);

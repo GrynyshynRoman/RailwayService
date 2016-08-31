@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 16.08.2016.
+ * Route deleting algorithm.
  */
 @WebServlet(name = "deleteRoute", urlPatterns = "/deleteRoute")
 public class DeleteRoute extends HttpServlet {

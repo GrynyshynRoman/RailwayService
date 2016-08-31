@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by GrynyshynRoman on 29.08.2016.
+ * Selects one search result by specified id.
  */
 @WebServlet(name = "selectTrain", urlPatterns = "/selectTrain")
 public class SelectTrain extends HttpServlet {
@@ -22,17 +22,20 @@ public class SelectTrain extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session=request.getSession();
-        List<SearchResult> resultList=(ArrayList<SearchResult>)session.getAttribute("searchResults");
-        int resultID=Integer.parseInt(request.getParameter("result_ID"));
-        SearchResult result=null;
+        HttpSession session = request.getSession();
+
+        List<SearchResult> resultList = (ArrayList<SearchResult>) session.getAttribute("searchResults");
+
+        int resultID = Integer.parseInt(request.getParameter("result_ID"));
+
+        SearchResult result = null;
         for (SearchResult searchResult : resultList) {
-            if (searchResult.getResult_ID()==resultID){
-                result=searchResult;
+            if (searchResult.getResult_ID() == resultID) {
+                result = searchResult;
                 break;
             }
         }
-        session.setAttribute("selectedResult",result);
+        session.setAttribute("selectedResult", result);
         response.sendRedirect("buyTicket.jsp");
     }
 }

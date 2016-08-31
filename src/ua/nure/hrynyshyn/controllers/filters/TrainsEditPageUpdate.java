@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 22.08.2016.
+ *  Simple filter. Runs each time when trainsEdit.jsp page is requested. Updates trains and carriages tables content.
  */
 @WebFilter(filterName = "trainsEditPageUpdate")
 public class TrainsEditPageUpdate implements Filter {

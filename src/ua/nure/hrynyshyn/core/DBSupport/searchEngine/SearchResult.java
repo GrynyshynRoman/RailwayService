@@ -7,7 +7,7 @@ import ua.nure.hrynyshyn.core.entities.railway.rollingStock.Train;
 import java.util.List;
 
 /**
- * Created by GrynyshynRoman on 24.08.2016.
+ * Container for all data about train, route ect. for displaying to user.
  */
 public class SearchResult {
 
@@ -18,7 +18,7 @@ public class SearchResult {
     private long wayTime;
     private Station destStation;
     private long destTime;
-    List<Carriage> carriages;
+    private List<Carriage> carriages;
     private double price;
     private RouteInfo routeInfo;
 

@@ -17,9 +17,15 @@ import java.util.logging.Level;
 import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseDateTime;
 
 /**
- * Created by GrynyshynRoman on 04.08.2016.
+ * Data access object for way stations on routes.
  */
 public class WayStationDAO extends AbstractDAO<WayStation> {
+    /**
+     * Returns all stations on specified route.
+     *
+     * @param id route id.
+     * @return stations list.
+     */
     public List<WayStation> getByRouteID(int id) {
         List<WayStation> stations = null;
         String sql = "SELECT *\n" +
@@ -33,6 +39,12 @@ public class WayStationDAO extends AbstractDAO<WayStation> {
         return stations;
     }
 
+    /**
+     * Returns destination time for specified station on specified route.
+     * @param route_ID route.
+     * @param station_ID station.
+     * @return time.
+     */
     public long getDestTime(int route_ID, int station_ID) {
         long date = 0;
         String sql = "SELECT arrival_Time\n" +
@@ -49,7 +61,12 @@ public class WayStationDAO extends AbstractDAO<WayStation> {
         }
         return date;
     }
-
+    /**
+     * Returns department time for specified station on specified route.
+     * @param route_ID route.
+     * @param station_ID station.
+     * @return time.
+     */
     public long getDepartTime(int route_ID, int station_ID) {
         long date = 0;
         String sql = "SELECT depart_Time\n" +
@@ -67,6 +84,11 @@ public class WayStationDAO extends AbstractDAO<WayStation> {
         return date;
     }
 
+    /**
+     * Removes all stations for route.
+     * @param id route id.
+     * @return true if operation success.
+     */
     public boolean deleteByRouteID(int id) {
         String sql = "DELETE FROM way_stations WHERE route_ID=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -144,7 +166,11 @@ public class WayStationDAO extends AbstractDAO<WayStation> {
     protected void prepareDeleteStatement(PreparedStatement statement, WayStation object) throws SQLException {
         statement.setInt(1, object.getWayStation_ID());
     }
-
+    /**
+     * Simple constructor.
+     *
+     * @param connection connection with database
+     */
     public WayStationDAO(Connection connection) {
         super.connection = connection;
     }

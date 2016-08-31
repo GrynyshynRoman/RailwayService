@@ -17,34 +17,35 @@
 </head>
 <body>
 <%@include file="languagePanel.html" %>
-<h1 align=center> <fmt:message key="main.title"/> </h1>
-<c:if test="${sessionScope.role.role eq 'admin'}">
-    <%@include file="adminPanel.jsp" %>
-</c:if>
-<div align=center>
-    <table border="1">
-        <tr>
-            <td>
-                <fmt:message key="search.search"/>
-                <form action="search" method="get">
-                    <fmt:message key="search.from"/>: <input type="text" id="from" name="departStation">
-                    <fmt:message key="search.to"/>: <input type="text" id="to" name="destStation"><br>
-                    <fmt:message key="search.date"/>:<input type="date" id="date" name="date">
+<h1 align=center><fmt:message key="main.title"/></h1>
+<jsp:include page="profileBar.jsp"/>
+<jsp:include page="navigationPanel.jsp"/>
+<div align="center"><fmt:message key="search.search"/></div>
+<table align="center" border="1">
+    <tr>
+        <td>
+            <form action="search" method="get">
+                <table width="30%" align="center">
+                    <tr>
+                        <td>
+                            <fmt:message key="search.from"/>: <input type="text" id="from" name="departStation">
+                        </td>
+                        <td>
+                            <fmt:message key="search.to"/>: <input type="text" id="to" name="destStation">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <fmt:message key="search.date"/>:<input type="date" id="date" name="date">
+                        </td>
+                    </tr>
+                </table>
+                <div align="center">
                     <input type="submit" value=<fmt:message key="search.submit"/>>
-                </form>
-            </td>
-            <td>
-                <jsp:include page="profileBar.jsp"/>
-            </td>
-        </tr>
-    </table>
-
-</div>
-<div align=center>
-
-</div>
-<div align=center>
-
-</div>
+                </div>
+            </form>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

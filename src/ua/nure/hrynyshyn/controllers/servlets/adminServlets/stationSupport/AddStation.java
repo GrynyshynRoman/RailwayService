@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 09.08.2016.
+ * Adding new station to database.
  */
 @WebServlet(name = "addStation", urlPatterns = "/addStation")
 public class AddStation extends HttpServlet {

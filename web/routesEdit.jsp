@@ -17,8 +17,9 @@
     <link rel="stylesheet" href="test.css">
 </head>
 <body>
-<%@include file="languagePanel.html" %>
-<%@include file="adminPanel.jsp" %>
+<%@include file="languagePanel.html"%>
+<jsp:include page="profileBar.jsp"/>
+<jsp:include page="navigationPanel.jsp"/>
 <table align="center" width="90%" border="1">
     <tr>
         <td>
@@ -127,7 +128,7 @@
                     <td><fmt:message key="route.destStatID"/></td>
                     <td><fmt:message key="route.destTime"/></td>
                 </tr>
-                <c:forEach var="route" items="${routes}">
+                <c:forEach var="route" items="${sessionScope.routes}">
                     <tr>
                         <td>${route.route_ID}</td>
                         <td><my:stationName ID="${route.departStation_ID}"/></td>
@@ -158,7 +159,7 @@
                     <td><fmt:message key="routeInfo.departTime"/></td>
                     <td><fmt:message key="ws.waitTime"/></td>
                 </tr>
-                <c:forEach var="wayStation" items="${wayStations}">
+                <c:forEach var="wayStation" items="${sessionScope.wayStations}">
                     <tr>
                         <td>${wayStation.wayStation_ID}</td>
                         <td>${wayStation.route_ID}</td>

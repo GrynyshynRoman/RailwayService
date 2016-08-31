@@ -1,9 +1,7 @@
 package ua.nure.hrynyshyn.core.entities.railway.realEstate;
 
-import java.sql.Date;
-
 /**
- * Created by GrynyshynRoman on 04.08.2016.
+ * Container for data about way stations.
  */
 public class WayStation{
     private int wayStation_ID;

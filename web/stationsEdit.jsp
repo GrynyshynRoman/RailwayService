@@ -18,8 +18,9 @@
     <link rel="stylesheet" href="test.css">
 </head>
 <body>
-<%@include file="languagePanel.html" %>
-<%@include file="adminPanel.jsp" %>
+<%@include file="languagePanel.html"%>
+<jsp:include page="profileBar.jsp"/>
+<jsp:include page="navigationPanel.jsp"/>
 <br>
 <br>
 <table border="1" align="center" width="50%">
@@ -59,7 +60,7 @@
             </form>
             <br>
             <div>
-                <c:if test="${isDeleted ne true && isDeleted ne null}">
+                <c:if test="${sessionScope.isDeleted ne true && sessionScope.isDeleted ne null}">
                     <strong><fmt:message key="stations.error"/></strong>
                 </c:if>
             </div>
@@ -79,7 +80,7 @@
         <td><fmt:message key="stations.state"/></td>
         <td><fmt:message key="stations.country"/></td>
     </tr>
-    <c:forEach var="station" items="${stations}">
+    <c:forEach var="station" items="${sessionScope.stations}">
         <tr>
             <td>${station.station_ID}</td>
             <td>${station.name}</td>

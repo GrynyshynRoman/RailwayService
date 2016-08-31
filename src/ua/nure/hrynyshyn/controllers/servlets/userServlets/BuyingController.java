@@ -15,16 +15,20 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Created by GrynyshynRoman on 30.08.2016.
+ * Ticket buying process. Creates and fills "Ticket" instance, then invokes buying transaction.
+ * By transaction result redirects to one of two pages, success or fail.
  */
 @WebServlet(name = "BuyTicket", urlPatterns = "/buyTicket")
 public class BuyingController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session=request.getSession();
-        User user=(User)session.getAttribute("user");
-        SearchResult result=(SearchResult)session.getAttribute("selectedResult");
-        int carriageNumber=Integer.parseInt(request.getParameter("carriageNumber"));
-        Ticket ticket=new Ticket();
+        HttpSession session = request.getSession();
+
+        User user = (User) session.getAttribute("user");
+        SearchResult result = (SearchResult) session.getAttribute("selectedResult");
+
+        int carriageNumber = Integer.parseInt(request.getParameter("carriageNumber"));
+
+        Ticket ticket = new Ticket();
         ticket.setUser_ID(user.getUser_ID());
         ticket.setTrain_ID(result.getTrain().getTrain_ID());
         ticket.setCarriageNumber(carriageNumber);
@@ -33,10 +37,13 @@ public class BuyingController extends HttpServlet {
         ticket.setDestStation_ID(result.getDestStation().getStation_ID());
         ticket.setDestTime(result.getDestTime());
         ticket.setPrice(result.getPrice());
-        boolean isSuccess=BuyingProcess.buy(ticket);
-        if (isSuccess){
+
+        boolean isSuccess = BuyingProcess.buy(ticket);
+
+        if (isSuccess) {
+            session.setAttribute("ticket", ticket);
             response.sendRedirect("buyingSuccess.jsp");
-        }else {
+        } else {
             response.sendRedirect("buyingError");
         }
 

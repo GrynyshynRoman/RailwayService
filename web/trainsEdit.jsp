@@ -7,7 +7,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" errorPage="errorPage.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" errorPage="errorPage.jsp" %>
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="ua.nure.hrynyshyn.resources.pageContent"/>
 <html>
@@ -17,7 +17,8 @@
 </head>
 <body>
 <%@include file="languagePanel.html"%>
-<%@include file="adminPanel.jsp"%>
+<jsp:include page="profileBar.jsp"/>
+<jsp:include page="navigationPanel.jsp"/>
 <table align="center" width="90%" border="1">
     <tr>
         <td>
@@ -45,7 +46,7 @@
             </form>
         </td>
     </tr>
-    </table>
+</table>
 <br>
 <table align="center" width="90%" border="1">
     <tr>
@@ -56,9 +57,9 @@
                 <label><fmt:message key="carriage.carriageNum"/> :</label> <input type="text" name="carriageNumber"><br>
                 <label><fmt:message key="carriage.type"/> :</label>
                 <select name="type">
-                    <option value="common"><fmt:message key="carriage.common"/> </option>
-                    <option value="reservedSeat"><fmt:message key="carriage.reservSeat"/> </option>
-                    <option value="coupe"><fmt:message key="carriage.coupe"/> </option>
+                    <option value="common"><fmt:message key="carriage.common"/></option>
+                    <option value="reservedSeat"><fmt:message key="carriage.reservSeat"/></option>
+                    <option value="coupe"><fmt:message key="carriage.coupe"/></option>
                 </select>
                 <br>
                 <label><fmt:message key="carriage.totalSeats"/> :</label> <input type="text" name="totalSeats"><br>
@@ -74,9 +75,9 @@
                 <label><fmt:message key="carriage.carriageNum"/> :</label> <input type="text" name="carriageNumber"><br>
                 <label><fmt:message key="carriage.type"/> :</label>
                 <select name="type">
-                    <option value="common"><fmt:message key="carriage.common"/> </option>
-                    <option value="reservedSeat"><fmt:message key="carriage.reservSeat"/> </option>
-                    <option value="coupe"><fmt:message key="carriage.coupe"/> </option>
+                    <option value="common"><fmt:message key="carriage.common"/></option>
+                    <option value="reservedSeat"><fmt:message key="carriage.reservSeat"/></option>
+                    <option value="coupe"><fmt:message key="carriage.coupe"/></option>
                 </select><br>
                 <label><fmt:message key="carriage.totalSeats"/> :</label> <input type="text" name="totalSeats"><br>
                 <label><fmt:message key="carriage.reservSeats"/> :</label> <input type="text" name="reservedSeats"><br>
@@ -99,11 +100,11 @@
         <td>
             <table border="1">
                 <tr>
-                    <td><fmt:message key="trains.id"/> </td>
-                    <td><fmt:message key="trains.routeID"/> </td>
+                    <td><fmt:message key="trains.id"/></td>
+                    <td><fmt:message key="trains.routeID"/></td>
 
                 </tr>
-                <c:forEach var="train" items="${trains}">
+                <c:forEach var="train" items="${sessionScope.trains}">
                     <tr>
                         <td>${train.train_ID}</td>
                         <td>${train.route_ID}</td>
@@ -114,14 +115,14 @@
         <td>
             <table border="1">
                 <tr>
-                    <td><fmt:message key="carriage.carriageID"/> </td>
+                    <td><fmt:message key="carriage.carriageID"/></td>
                     <td><fmt:message key="trains.id"/></td>
-                    <td><fmt:message key="carriage.number"/> </td>
+                    <td><fmt:message key="carriage.number"/></td>
                     <td><fmt:message key="carriage.type"/></td>
                     <td><fmt:message key="carriage.totalSeats"/></td>
                     <td><fmt:message key="carriage.reservSeats"/></td>
                 </tr>
-                <c:forEach var="carriage" items="${carriages}">
+                <c:forEach var="carriage" items="${sessionScope.carriages}">
                     <tr>
                         <td>${carriage.carriage_ID} </td>
                         <td>${carriage.train_ID}</td>

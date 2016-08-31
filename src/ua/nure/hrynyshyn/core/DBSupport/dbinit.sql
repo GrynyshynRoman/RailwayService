@@ -1,5 +1,8 @@
+/*Script for crating all tables for application functionality.*/
 CREATE DATABASE IF NOT EXISTS RAILWAY;
 USE RAILWAY;
+
+
 CREATE TABLE STATIONS (
   station_ID INT NOT NULL AUTO_INCREMENT,
   name       VARCHAR(50),
@@ -8,6 +11,7 @@ CREATE TABLE STATIONS (
   country    VARCHAR(50),
   PRIMARY KEY (station_ID)
 );
+
 CREATE TABLE ROUTES (
   route_ID         INT NOT NULL AUTO_INCREMENT,
   departStation_ID INT NOT NULL,
@@ -30,7 +34,7 @@ CREATE TABLE WAY_STATIONS (
   FOREIGN KEY (route_ID) REFERENCES routes (route_ID),
   FOREIGN KEY (station_ID) REFERENCES stations (station_ID)
 );
-DROP TABLE way_stations;
+
 
 CREATE TABLE TRAINS (
   train_ID INT NOT NULL AUTO_INCREMENT,
@@ -49,9 +53,6 @@ CREATE TABLE CARRIAGES (
   PRIMARY KEY (carriage_ID),
   FOREIGN KEY (train_ID) REFERENCES trains (train_ID)
 );
-;
-UPDATE carriages SET reservedSeats=reservedSeats+1 WHERE train_ID=? AND carriageNumber=?;
-
 
 CREATE TABLE USERS (
   user_ID   INT         NOT NULL AUTO_INCREMENT,
@@ -60,8 +61,8 @@ CREATE TABLE USERS (
   lastName  VARCHAR(50) NOT NULL,
   password  VARCHAR(50) NOT NULL,
   PRIMARY KEY (user_ID)
-
 );
+
 CREATE TABLE ROLES (
   role_ID INT         NOT NULL AUTO_INCREMENT,
   login   VARCHAR(50) NOT NULL UNIQUE,
@@ -69,6 +70,7 @@ CREATE TABLE ROLES (
   PRIMARY KEY (role_ID),
   FOREIGN KEY (login) REFERENCES users (login)
 );
+
 CREATE TABLE TICKETS (
   ticket_ID      INT      NOT NULL AUTO_INCREMENT,
   user_ID        INT      NOT NULL,
@@ -130,7 +132,7 @@ SELECT routes.route_ID
 FROM routes
   JOIN way_stations ON routes.route_ID = way_stations.route_ID
 WHERE (routes.departStation_ID = 32 OR way_stations.station_ID = 32) AND
-      (routes.destStation_ID = 38 OR way_stations.station_ID = 38)
+      (routes.destStation_ID = 38 OR way_stations.station_ID = 38);
 #       AND
 #       ((DATE(routes.departTime) BETWEEN 20160827 AND (20160827 + hour(23) + minute(59))) OR
 #        (DATE((way_stations.arrival_Time) BETWEEN 20160827 AND (20160827 + hour(23) + minute(59)))));
@@ -183,19 +185,19 @@ FROM way_stations;
 
 
 INSERT INTO tickets (user_ID, train_ID, carriageNumber, depStation_ID, depTime, destStation_ID, destTime, price)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
 
 SELECT *
-FROM tickets
-WHERE ticket_ID = ?
+FROM tickets;
+
 
 UPDATE tickets
 SET ticket_ID = ?, user_ID = ?, train_ID = ?, carriageNumber = ?, depStation_ID = ?, depTime = ?, destStation_ID = ?,
   destTime    = ?, price = ?
-WHERE ticket_ID = ?
+WHERE ticket_ID = ?;
 
 DELETE FROM tickets
-WHERE ticket_ID = ?
+WHERE ticket_ID = ?;
 
 SELECT *
 FROM tickets;

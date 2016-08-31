@@ -16,23 +16,23 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 18.08.2016.
+ * New carriage adding algorithm.
  */
 @WebServlet(name = "addCarriage", urlPatterns = "/addCarriage")
 public class AddCarriage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        Carriage carriage=new Carriage();
+        Carriage carriage = new Carriage();
         carriage.setTrain_ID(Integer.parseInt(request.getParameter("train_ID")));
         carriage.setCarriageNumber(Integer.parseInt(request.getParameter("carriageNumber")));
         carriage.setType(request.getParameter("type"));
         carriage.setTotalSeats(Integer.parseInt(request.getParameter("totalSeats")));
         carriage.setReservedSeats(Integer.parseInt(request.getParameter("reservedSeats")));
 
-        ConnectionPool cp=(ConnectionPool)getServletContext().getAttribute("DBConnection");
-        Connection connection=cp.getConnection();
+        ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("DBConnection");
+        Connection connection = cp.getConnection();
 
-        CarriageDAO carriageDAO= DAOFactory.getCarriageDAO(connection);
+        CarriageDAO carriageDAO = DAOFactory.getCarriageDAO(connection);
         carriageDAO.insert(carriage);
         cp.freeConnection(connection);
 

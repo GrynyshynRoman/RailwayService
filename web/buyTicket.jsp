@@ -15,6 +15,10 @@
     <title>Buy Ticket</title>
 </head>
 <body>
+<%@include file="languagePanel.html"%>
+<jsp:include page="profileBar.jsp"/>
+<jsp:include page="navigationPanel.jsp"/>
+
 <table border="1" align="center" width="80%">
     <tr>
         <td><fmt:message key="search.trainNumber"/></td>
@@ -70,6 +74,8 @@
         </td>
     </tr>
 </table>
+<br>
+<br>
 <div align="center">
     <form action="buyTicket" method="post">
         <fmt:message key="ticket.carriageNumber"/>

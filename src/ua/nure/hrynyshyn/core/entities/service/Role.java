@@ -1,7 +1,7 @@
 package ua.nure.hrynyshyn.core.entities.service;
 
 /**
- * Created by GrynyshynRoman on 21.08.2016.
+ * Container for data about roles.
  */
 public class Role {
     private int role_ID;

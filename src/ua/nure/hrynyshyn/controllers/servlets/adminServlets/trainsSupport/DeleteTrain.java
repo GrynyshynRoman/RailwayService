@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 18.08.2016.
+ * Deleting, specified by id, train from database.
  */
 @WebServlet(name = "deleteTrain", urlPatterns = "/deleteTrain")
 public class DeleteTrain extends HttpServlet {

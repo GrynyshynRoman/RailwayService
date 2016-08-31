@@ -1,9 +1,7 @@
 package ua.nure.hrynyshyn.core.entities.service;
 
-import java.util.Date;
-
 /**
- * Created by GrynyshynRoman on 03.08.2016.
+ * Container for data about tickets.
  */
 public class Ticket {
     private int ticket_ID;

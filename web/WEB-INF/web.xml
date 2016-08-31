@@ -29,7 +29,7 @@
 
     <!-- Filters and listeners-->
     <listener>
-        <listener-class>ua.nure.hrynyshyn.controllers.listeners.appInitListener</listener-class>
+        <listener-class>ua.nure.hrynyshyn.controllers.listeners.AppInitListener</listener-class>
     </listener>
 
 

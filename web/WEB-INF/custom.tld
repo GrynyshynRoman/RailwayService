@@ -11,6 +11,10 @@
             <type>int</type>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>showID</name>
+            <type>boolean</type>
+        </attribute>
         <body-content>scriptless</body-content>
     </tag>
 </taglib>

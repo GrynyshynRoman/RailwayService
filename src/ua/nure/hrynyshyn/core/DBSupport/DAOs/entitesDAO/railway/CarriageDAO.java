@@ -12,14 +12,21 @@ import java.util.List;
 import java.util.logging.Level;
 
 /**
- * Created by GrynyshynRoman on 04.08.2016.
+ * Data access object for carriage.
  */
 public class CarriageDAO extends AbstractDAO<Carriage> {
-    public boolean reserveSeat(int traint_ID, int carriageNumber) {
-        boolean isExecuted = false;
+    /**
+     * Reserves one place in carriage, by incrementing number of reserved seats.
+     *
+     * @param train_ID       train number
+     * @param carriageNumber carriage number in specified train
+     * @return true if operation success.
+     */
+    public boolean reserveSeat(int train_ID, int carriageNumber) {
+        boolean isExecuted;
         String sql = "UPDATE carriages SET reservedSeats=reservedSeats+1 WHERE train_ID=? AND carriageNumber=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, traint_ID);
+            statement.setInt(1, train_ID);
             statement.setInt(2, carriageNumber);
             isExecuted = statement.execute();
         } catch (SQLException e) {
@@ -29,6 +36,13 @@ public class CarriageDAO extends AbstractDAO<Carriage> {
         return isExecuted;
     }
 
+    /**
+     * Returns carriage instance in specified train.
+     *
+     * @param train_ID       train number.
+     * @param carriageNumber carriage number.
+     * @return carriage instance
+     */
     public Carriage getByNumber(int train_ID, int carriageNumber) {
         Carriage carriage = null;
         String sql = "SELECT * FROM carriages WHERE train_ID=? AND carriageNumber=?";
@@ -44,6 +58,12 @@ public class CarriageDAO extends AbstractDAO<Carriage> {
         return carriage;
     }
 
+    /**
+     * Returns carriages with free places.
+     *
+     * @param train_ID train number
+     * @return carriage list
+     */
     public List<Carriage> getNotFullCarriages(int train_ID) {
         List<Carriage> carriages = null;
         String sql = "SELECT *\n" +
@@ -60,6 +80,12 @@ public class CarriageDAO extends AbstractDAO<Carriage> {
         return carriages;
     }
 
+    /**
+     * Removes all carriages for specified train.
+     *
+     * @param id train number
+     * @return true if operation success.
+     */
     public boolean deleteByTrainID(int id) {
         String sql = "DELETE FROM carriages WHERE train_ID=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -138,6 +164,10 @@ public class CarriageDAO extends AbstractDAO<Carriage> {
         statement.setInt(1, object.getCarriage_ID());
     }
 
+    /**
+     * Simple constructor.
+     * @param connection connection with database
+     */
     public CarriageDAO(Connection connection) {
         super.connection = connection;
     }

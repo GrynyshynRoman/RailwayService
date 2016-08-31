@@ -15,19 +15,19 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 18.08.2016.
+ * Changing train route.
  */
-@WebServlet(name = "editTrain",urlPatterns = "/editTrain")
+@WebServlet(name = "editTrain", urlPatterns = "/editTrain")
 public class EditTrain extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        Train train=new Train();
+        Train train = new Train();
         train.setTrain_ID(Integer.parseInt(request.getParameter("train_ID")));
         train.setRoute_ID(Integer.parseInt(request.getParameter("route_ID")));
 
-        ConnectionPool cp=(ConnectionPool)getServletContext().getAttribute("DBConnection");
-        Connection connection=cp.getConnection();
+        ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("DBConnection");
+        Connection connection = cp.getConnection();
         DAOFactory.getTrainDAO(connection).update(train);
 
         cp.freeConnection(connection);

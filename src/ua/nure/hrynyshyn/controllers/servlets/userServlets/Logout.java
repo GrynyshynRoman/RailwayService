@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Created by GrynyshynRoman on 19.08.2016.
+ * Simply deletes user-specified attributes from session and redirects to main page.
  */
 @WebServlet(name = "logout",urlPatterns = "/logout")
 public class Logout extends HttpServlet {

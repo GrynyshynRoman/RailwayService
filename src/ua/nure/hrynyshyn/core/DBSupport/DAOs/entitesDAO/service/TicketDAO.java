@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by GrynyshynRoman on 30.08.2016.
+ * DA-object for tickets.
  */
 public class TicketDAO extends AbstractDAO<Ticket> {
     @Override
@@ -89,6 +89,11 @@ public class TicketDAO extends AbstractDAO<Ticket> {
         statement.setInt(1, object.getTicket_ID());
     }
 
+    /**
+     * Simple constructor.
+     *
+     * @param connection connection with database
+     */
     public TicketDAO(Connection connection) {
         super.connection = connection;
     }

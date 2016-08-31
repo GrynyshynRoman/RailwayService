@@ -12,24 +12,35 @@ import java.util.List;
 
 
 /**
- * Created by GrynyshynRoman on 04.08.2016.
+ * Data access object for station.
  */
 public class StationDAO extends AbstractDAO<Station> {
-
-    public String getName(int id){
-        String name=null;
-        String sql="SELECT name FROM stations WHERE station_ID=?";
-        try(PreparedStatement statement=connection.prepareStatement(sql)){
-            statement.setInt(1,id);
-            ResultSet rs=statement.executeQuery();
-            if (rs.next()){
-                name=rs.getString(1);
+    /**
+     * Returns specified by id station name.
+     *
+     * @param id station id
+     * @return name
+     */
+    public String getName(int id) {
+        String name = null;
+        String sql = "SELECT name FROM stations WHERE station_ID=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                name = rs.getString(1);
             }
-        }catch (SQLException e){
-            log.error("Getting station name failure",e);
+        } catch (SQLException e) {
+            log.error("Getting station name failure", e);
         }
         return name;
     }
+
+    /**
+     * Return all stations names.
+     *
+     * @return list of names.
+     */
     public List<String> getAllNames() {
         String sql = "SELECT name FROM stations";
         List<String> names = new ArrayList<>();
@@ -40,21 +51,30 @@ public class StationDAO extends AbstractDAO<Station> {
                 names.add(name);
             }
         } catch (SQLException e) {
-            log.error("All station names getting failure",e);
+            log.error("All station names getting failure", e);
         }
         return names;
     }
 
+    /**
+     * Returns station instance.
+     *
+     * @param name station name.
+     * @return station.
+     */
     public Station getByName(String name) {
         String sql = "SELECT * FROM stations WHERE name=?";
-        List<Station> stations = null;
+        List<Station> stations;
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
             stations = parseResultSet(statement.executeQuery());
+            if (stations.size() != 0) {
+                return stations.iterator().next();
+            }
         } catch (SQLException e) {
-            log.error("Station name getting failure",e);
+            log.error("Station name getting failure", e);
         }
-        return stations.iterator().next();
+        return null;
     }
 
 
@@ -120,6 +140,11 @@ public class StationDAO extends AbstractDAO<Station> {
         statement.setInt(1, object.getStation_ID());
     }
 
+    /**
+     * Simple constructor.
+     *
+     * @param connection connection with database
+     */
     public StationDAO(Connection connection) {
         super.connection = connection;
     }

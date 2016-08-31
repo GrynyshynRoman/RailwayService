@@ -18,19 +18,23 @@ import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseDate;
 import static ua.nure.hrynyshyn.core.supportClasses.DateTimeSupport.parseTime;
 
 /**
- * Created by GrynyshynRoman on 16.08.2016.
+ * Editing specified by id station on route.
  */
 @WebServlet(name = "editWayStation", urlPatterns = "/editWayStation")
 public class EditWayStation extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         WayStation station = new WayStation();
+
         station.setWayStation_ID(Integer.parseInt(request.getParameter("wayStationID")));
         station.setStation_ID(Integer.parseInt(request.getParameter("stationID")));
         station.setRoute_ID(Integer.parseInt(request.getParameter("routeID")));
+
         station.setArrivalTime(parseDate(request.getParameter("arrivDate"))
                 + parseTime(request.getParameter("arrivTime")));
+
         station.setDepartTime(parseDate(request.getParameter("deptDate"))
                 + parseTime(request.getParameter("deptTime")));
+
         station.setWaitingTime(parseTime(request.getParameter("waitingTime")));
 
         ConnectionPool cp = (ConnectionPool) getServletContext().getAttribute("DBConnection");

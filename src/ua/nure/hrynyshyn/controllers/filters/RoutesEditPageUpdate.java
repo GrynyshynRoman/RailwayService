@@ -11,17 +11,18 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 22.08.2016.
+ * Simple filter. Runs each time when routesEdit.jsp page is requested. Updates routes and way stations tables content.
  */
 @WebFilter(filterName = "RoutesEditPageUpdate")
 public class RoutesEditPageUpdate implements Filter {
+
     public void destroy() {
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest request=(HttpServletRequest) req;
-        ConnectionPool cp=(ConnectionPool)request.getServletContext().getAttribute("DBConnection");
-        Connection connection=cp.getConnection();
+        HttpServletRequest request = (HttpServletRequest) req;
+        ConnectionPool cp = (ConnectionPool) request.getServletContext().getAttribute("DBConnection");
+        Connection connection = cp.getConnection();
         HttpSession session = request.getSession();
         session.setAttribute("routes", DAOFactory.getRouteDAO(connection).getAll());
         session.setAttribute("wayStations", DAOFactory.getWayStationDAO(connection).getAll());

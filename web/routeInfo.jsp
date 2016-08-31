@@ -15,7 +15,9 @@
     <title>Route info</title>
 </head>
 <body>
-<%@include file="languagePanel.html" %>
+<%@include file="languagePanel.html"%>
+<jsp:include page="profileBar.jsp"/>
+<jsp:include page="navigationPanel.jsp"/>
 <table align="center" width="50%" border="1">
     <tr>
         <td><fmt:message key="routeInfo.station"/></td>
@@ -66,5 +68,10 @@
         <td></td>
     </tr>
 </table>
+<br>
+<br>
+<div align="center">
+    <a href="searchResults.jsp"><fmt:message key="global.back"/> </a>
+</div>
 </body>
 </html>

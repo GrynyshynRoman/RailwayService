@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 /**
- * Created by GrynyshynRoman on 16.08.2016.
+ * Deleting station from route.
  */
 @WebServlet(name = "deleteWayStation", urlPatterns = "/deleteWayStation")
 public class DeleteWayStation extends HttpServlet {

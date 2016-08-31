@@ -13,9 +13,15 @@ import java.util.List;
 import java.util.logging.Level;
 
 /**
- * Created by GrynyshynRoman on 04.08.2016.
+ * Data access object for train.
  */
 public class TrainDAO extends AbstractDAO<Train> {
+    /**
+     * Returns list of trains on specified route.
+     *
+     * @param route_ID route.
+     * @return list of trains.
+     */
     public List<Train> getByRouteID(int route_ID) {
         String sql = "SELECT * FROM trains WHERE route_ID=?";
         List<Train> trains = null;
@@ -23,7 +29,7 @@ public class TrainDAO extends AbstractDAO<Train> {
             statement.setInt(1, route_ID);
             trains = parseResultSet(statement.executeQuery());
         } catch (SQLException e) {
-            log.error("Route id getting failure",e);
+            log.error("Route id getting failure", e);
         }
         return trains;
     }
@@ -81,6 +87,11 @@ public class TrainDAO extends AbstractDAO<Train> {
         statement.setInt(1, object.getTrain_ID());
     }
 
+    /**
+     * Simple constructor.
+     *
+     * @param connection connection with database
+     */
     public TrainDAO(Connection connection) {
         super.connection = connection;
     }
