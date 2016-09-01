@@ -4,7 +4,7 @@ package ua.nure.hrynyshyn.core.supportClasses;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by GrynyshynRoman on 25.08.2016.
+ * Simply formats time from long value (milliseconds) to HH:mm pattern.
  */
 public class TimeFormatter {
     String time;

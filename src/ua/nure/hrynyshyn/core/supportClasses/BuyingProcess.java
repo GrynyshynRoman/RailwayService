@@ -12,11 +12,18 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Created by GrynyshynRoman on 30.08.2016.
+ * Contains algorithm of buying ticket.
  */
 public class BuyingProcess {
     private static final Logger log = Logger.getLogger(BuyingProcess.class.getName());
 
+    /**
+     * Ticket buying algorithm. Uses transaction for adding necessary changes to database.
+     * Adds info about ticket to database and updates train data.
+     *
+     * @param ticket user's ticket
+     * @return true if operation success.
+     */
     public static synchronized boolean buy(Ticket ticket) {
         boolean isDone = false;
         ConnectionPool cp = ConnectionPool.getInstance();

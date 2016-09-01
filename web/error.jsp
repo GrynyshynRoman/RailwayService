@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: GrynyshynRoman
+  User: HrynyshynRoman
   Date: 17.08.2016
   Time: 16:00
   To change this template use File | Settings | File Templates.
@@ -14,7 +14,7 @@
 <h1>Error</h1>
 <div>
     <p class="error">Login error</p>
-    <strong><a href="index.jsp">Back</a></strong>.</p>
+    <strong><a href="index.jsp">Back</a></strong>
 </div>
 </body>
 </html>
